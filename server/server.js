@@ -1,22 +1,15 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-// const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
-// const flash = require('express-flash')
 const logger = require('morgan')
 const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
-// const reviewRoutes = require('./routes/reviews')
 const cors = require("cors");
 app.use(cors());
 
 require('dotenv').config({path: './config/.env'})
-// let path = require('dotenv').config({path: './config/.env'})
-
-// Passport config
-require('./config/passport')(passport)
 
 connectDB()
 app.use(express.static('public'))
@@ -32,14 +25,9 @@ app.use(
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
   )
-  
-// Passport middleware
-// app.use(passport.initialize())
-// app.use(passport.session())
-// app.use(flash())
+
 
 app.use('/', mainRoutes)
-// app.use("/reviews", reviewRoutes);
  
 
 app.listen(process.env.PORT, ()=>{
