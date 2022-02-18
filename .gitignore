@@ -8,5 +8,5 @@
 .env
 node_modules
 
-serviceAccountKey
-/server/serviceAccountKey
+serviceAccountKey.json
+/server/serviceAccountKey.json
