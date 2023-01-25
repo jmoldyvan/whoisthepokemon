@@ -19,6 +19,7 @@
     "react-search-autocomplete": "^8.3.2",
     "react-transition-group": "^4.4.5",
     "sass": "^1.60.0",
+    "watch": "^1.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
