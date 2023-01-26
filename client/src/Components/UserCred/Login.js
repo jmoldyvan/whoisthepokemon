@@ -35,7 +35,9 @@ export default function Login(){
           navigate("/");
           window.location.reload()
         } catch (e) {
-          setError("Failed to login");
+            console.log(e);
+            alert(`Failed to register:  ${e.code}`);     
+            
         }
         setLoading(false);
       }
