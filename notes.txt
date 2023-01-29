@@ -38,8 +38,14 @@
 
 [X] leaderboard is broken****
 
+[X] select no gen breaks game
+
 [] delete user option
 
-[] select no gen breaks game
-
 [] window reload
+
+[] change color scheme
+
+[] soome border around who's that pokemon/ name
+
+[] styling for gens

@@ -8,7 +8,7 @@ import { allPokemonNames } from "./APIService";
 import Leaderboard from "./Leaderboard";
 import AutocompleteSearch from "./AutocompleteSearch"
 import Generations from "./Generations";
-import { SwitchTransition, CSSTransition } from "react-transition-group";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 
 export default function Main(){
@@ -17,11 +17,16 @@ export default function Main(){
     const navigate = useNavigate();
     const [randomPokemonInfo, setRandomPokemonInfo] = useState()
     const [winCondition, setWinCondition] = useState(false)
+    const [winConditionAnimation, setWinConditionAnimation] = useState(0)
     const [scoreCondition, setScoreCondition] = useState(false)
     const [leaderboardBool, setLeaderboardBool] = useState(false)
     const [comboTracker, setcomboTracker] = useState(0)
     const [highscoreTracker, setHighScoreTracker] = useState(0)
     const [pokemonNames, setPokemonNames] = useState()
+    const [selectTab, setSelectTab] = useState([
+        {name: 'autocomplete', selected: false},
+        {name: 'submit', selected: false}
+    ])
     const [genertaions, setGenerations] = useState([
     { name: 'gen1', range: [1, 151], selected: true },
     { name: 'gen2', range: [151, 251], selected: true },
@@ -67,7 +72,12 @@ async function getPokemonInfo() {
 
 async function generateRandomPokemon(genertaions){
     try {
+    setSelectTab([
+        {name: 'autocomplete', selected: false},
+        {name: 'submit', selected: false}
+    ])
     setWinCondition(false)
+    setWinConditionAnimation(0)
     let pokemonInfo = await getPokemonInfo(genertaions)
     await setRandomPokemonInfo(pokemonInfo)
     return true
@@ -78,10 +88,21 @@ async function generateRandomPokemon(genertaions){
 
 function toggleGeneration(chosenGeneration) {
     setGenerations(prevValue => {
-        return prevValue.map((selGen) => {
-            return selGen.name === chosenGeneration ? {...selGen, selected: !selGen.selected} : selGen
-        })
-    })
+        const selectedGenerations = prevValue.filter(selGen => selGen.selected);
+        const isLastSelected = selectedGenerations.length === 1 && selectedGenerations[0].name === chosenGeneration;
+        
+        return prevValue.map(selGen => {
+            if (selGen.name === chosenGeneration) {
+                if (isLastSelected) {
+                    return selGen;
+                } else {
+                    return {...selGen, selected: !selGen.selected};
+                }
+            } else {
+                return selGen;
+            }
+        });
+    });
 }
 
 async function allNamesOfPokemon() {
@@ -135,6 +156,7 @@ async function updateHighScores(){
 function takeGuess(guess){
     let pokeGuess = guess
     setWinCondition(randomPokemonInfo.name === pokeGuess ? true : false)
+    setWinConditionAnimation(randomPokemonInfo.name === pokeGuess ? 1 : 2)
     setcomboTracker(prevValue => { return randomPokemonInfo.name === pokeGuess ? prevValue + 1 : prevValue=0})
     updateHighScores()
   }
@@ -157,8 +179,21 @@ function toggleLeaderboard() {
 }
 
 function giveUpRevealAnswer(){
+    setSelectTab([
+        {name: 'autocomplete', selected: false},
+        {name: 'submit', selected: false}
+    ])
     setWinCondition(true)
+    setWinConditionAnimation(2)
     setcomboTracker(0)
+}
+
+function selectA(index){
+    setSelectTab(prevValue => {
+        return prevValue.map((cell) => {
+            return cell.name === index ? {...cell, selected: !cell.selected} : cell
+        })
+    })
 }
 
 randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
@@ -167,9 +202,9 @@ randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
         <div id="app">
             <main className="container" >
                 <CSSTransition name="animate-section" classNames="animate-section">
-                    <section className="poke-section" v-if={isPlaying}>
+                    <section className="poke-section" >
                         {currentUser ? <h1 className="poke-title">Hello {currentUser.displayName}</h1> : <h1 className="poke-title">Hello</h1>}
-                        <h1 className="poke-title">Who's That Pokemon?</h1>
+                        <h1 className="">Who's That Pokemon?</h1>
                         <div className="poke-question-wrapper">
                             <h2 className="poke-question">
                                 <span aria-live="polite" className="poke-question-number">
@@ -180,35 +215,43 @@ randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
                             </h2>
                             <span className="poke-score">
                                 {highscoreTracker}
-                                <small>YOUR HIGH SCORE</small>
+                                <small> HIGH SCORE</small>
                             </span>
-                            {randomPokemonInfo ? <img style={pokemonShadow} src={randomPokemonInfo.sprites.other['official-artwork']['front_default']}></img> : <img></img>}
+                            <div className={`poke-image ${winConditionAnimation === 1 ? 'poke-image-success' : winConditionAnimation === 2 ? 'poke-image-error' : ''}`}>
+                                {randomPokemonInfo ? <img /*className="poke-image-img"*/ style={pokemonShadow} src={randomPokemonInfo.sprites.other['official-artwork']['front_default']}></img> : <img></img>}                               
+                            </div>
                             {winCondition && <h3>It's {randomPokemonInfo.name}</h3>}
-                            <AutocompleteSearch
-                                pokemonNames={pokemonNames}
-                                takeGuess={takeGuess}
-                                winCondition={winCondition}
-                            />
-                            <button 
-                                style={oppositeStyles} 
-                                className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" 
-                                onClick={generateRandomPokemon} 
-                                >Next Pokemon
-                            </button>
-                            <button
-                                style={styles}  
-                                className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" 
-                                onClick={giveUpRevealAnswer} 
-                                >Give Up
-                            </button>
+                            <TransitionGroup tag="div" name="animate-options" className={`poke-options ${winConditionAnimation ? 'poke-options-answers' : ''}`}>
+                                <AutocompleteSearch
+                                    pokemonNames={pokemonNames}
+                                    takeGuess={takeGuess}
+                                    winCondition={winCondition}
+                                    winConditionAnimation={winConditionAnimation}
+                                    selectA={selectA}
+                                    selectTab={selectTab}
+                                />
+                                {leaderboardBool ? <Leaderboard winConditionAnimation={winConditionAnimation} handleLeaderboard={toggleLeaderboard} /> : 
+                                <div className={`poke-options-button`} onClick={() => toggleLeaderboard()}>Leaderboard</div>}
+                            </TransitionGroup>
+                            <Logout winConditionAnimation={winConditionAnimation} />
+                            <footer className="poke-buttons">
+                                <button 
+                                    style={oppositeStyles} 
+                                    className="button" 
+                                    onClick={generateRandomPokemon} 
+                                    >Next Pokemon
+                                </button>
+                                <button
+                                    style={styles}  
+                                    className="button" 
+                                    onClick={giveUpRevealAnswer} 
+                                    >Give Up
+                                </button>
+                            </footer>
                             <Generations 
                                 genertaions = {genertaions}
                                 toggleGeneration = {toggleGeneration}
                             />
-                            {/* <h1>You Have {comboTracker} combo</h1> */}
-                            {/* <h1>Your HighScore {highscoreTracker}</h1> */}
-                            {leaderboardBool ? <Leaderboard handleLeaderboard={toggleLeaderboard} /> : <button onClick={() => toggleLeaderboard()}>Leaderboard</button>}
-                            <Logout />
                         </div>
                     </section>
                 </CSSTransition>

@@ -14,14 +14,14 @@ function handleSubmit(event) {
     event.preventDefault()
 }
 
-const styles = {
-    pointerEvents : props.winCondition === true ? "none" : "all",
-}
-
+console.log(props.selectTab);
     return( 
-        <div>
+        <div> 
             <form onSubmit={handleSubmit}>
-                <div>
+                <div
+                    className={`poke-options-button ${props.selectTab[0].selected === true ? 'selected' : ''} ${props.winConditionAnimation === 1 ? 'success' : props.winConditionAnimation === 1 ? 'error' : '' }`}
+                    onClick={() => props.selectA('autocomplete')}
+                >
                     <Autocomplete
                         options={props.pokemonNames}
                         sx={{ width: 300 }}
@@ -37,12 +37,11 @@ const styles = {
                         getOptionLabel={(option) => option.name || ""}
                     />
                 </div>
-                <button 
-                    onClick={() => {autoCompleteStringValue!==undefined ? props.takeGuess(autoCompleteStringValue.name) : props.takeGuess(null)}}   
-                    style={styles}  
-                    className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
+                <div 
+                    onClick={() => {autoCompleteStringValue!==undefined ? props.takeGuess(autoCompleteStringValue.name) : props.takeGuess(null)}}
+                    className={`poke-options-button ${props.selectTab[1].selected === true ? 'selected' : ''} ${props.winConditionAnimation === 1 ? 'success' : props.winConditionAnimation === 1 ? 'error' : '' }`}  
                     >TAKE GUESS
-                </button>
+                </div>
             </form>             
         </div>
     )

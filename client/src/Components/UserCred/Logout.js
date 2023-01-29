@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { TransitionGroup } from "react-transition-group";
 
-export default function Logout() {
+export default function Logout(props) {
     const navigate = useNavigate();
     const {logout, setError} = useAuth();
 
@@ -17,8 +18,10 @@ export default function Logout() {
       }
 
     return (
-        <div>
-            <button onClick={ () => handleLogout() }>Logout</button>
+      <TransitionGroup tag="div" name="animate-options" className={`poke-options ${props.winConditionAnimation ? 'poke-options-answers' : ''}`}>
+        <div className={`poke-options-button `} onClick={ () => handleLogout() }> 
+            <button>Logout</button>
         </div>
+      </TransitionGroup>
     );
 }
