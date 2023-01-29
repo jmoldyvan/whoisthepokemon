@@ -17,10 +17,10 @@ code {
 }
 
 @import 'https://fonts.googleapis.com/css?family=VT323';
-$black: #333;
+$black: #444869;
 $white: #fff;
 
-$primary-color: #8352f6;
+$primary-color: #111827;
 $primary-color-dark: darken( $primary-color, 10% );
 $primary-color-tint: lighten( $primary-color, 15% );
 $primary-font: "VT323", monospace;
@@ -28,8 +28,10 @@ $primary-font: "VT323", monospace;
 $secondary-color: #94acbd;
 $secondary-color-dark: darken( $secondary-color, 10% );
 
+$secondary-color-1: #525f68;
+
 $options-color: #c5d5ee;
-$options-color-hover: darken( $options-color, 7% );
+$options-color-hover: darken( $options-color, 30% );
 $success-color: #7bd55a;
 $error-color: #ff8b62;
 
@@ -380,6 +382,100 @@ h2 {
 
 		&.selected {
 			background-color: $secondary-color;
+		}
+		
+		&.error {
+			background-color: $error-color;
+		}
+		
+		&.success {
+			background-color: $success-color;
+		}
+	}
+}
+.poke-options-1 {
+	position: relative;
+	display: flex;
+	// flex-direction: column;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	align-items: center;
+	z-index: 3;
+	top: -30px;
+	padding: 0 10px;
+	margin: 0 auto;
+	width: 300px;
+	border-radius: $border-radius-main;
+	background-color: $black;
+	
+	&:not(.poke-options-1-answers) {
+		.poke-options-1-button {
+			&:not(.selected) {
+				&:hover {
+					background-color: $options-color-hover;
+					// color: $primary-color-dark;
+					transform: translateY(-$border-width / 2);
+				}
+		
+				&:active {
+					&::before {
+						transform: translate(-50%, -50%) scale(1);
+					}
+				}
+			}
+		}
+	}
+	
+	&.poke-options-1-answers {
+		.poke-options-1-button {
+			cursor: default;
+			
+			&:not(.error):not(.success) {
+				color: $secondary-color;
+			}
+		}
+	}
+	
+	&-button {
+		position: relative;
+		width: 33%;
+		padding: 0.5em;
+		min-width: 50px;
+		max-height: $options-height;
+		border: $border-main;
+		border-radius: $border-radius-main;
+		background-color: $options-color;
+		font-family: $primary-font;
+		font-size: 1.125rem;
+		transition: 0.45s;
+		cursor: pointer;
+		overflow: hidden;
+		
+		&:focus {
+			outline: none;
+		}
+		
+		&::before {
+			content: '';
+			position: absolute;
+			z-index: -1;
+			left: 50%;
+			top: 50%;
+			height: 200px;
+			width: 200px;
+			border-radius: 50%;
+			background-color: $secondary-color;
+			transform: translate(-50%, -50%) scale(0);
+			transition: 0.2s ease-in-out;
+		}
+		
+		&:not(:last-child) {
+			margin-bottom: $border-width / 2;
+		}
+// ***************************
+		&.selected {
+			background-color: $secondary-color-1;
+			color: white
 		}
 		
 		&.error {

@@ -48,8 +48,14 @@
 
 [] soome border around who's that pokemon/ name
 
-[] styling for gens
+[X] styling for gens
 
 [] change button to not fade
 
 [] boarder for autocomplkekte nono 
+
+[] spacing for autocomplete
+
+[] reveal name of give up
+
+[] 
