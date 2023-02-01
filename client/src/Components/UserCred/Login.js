@@ -86,7 +86,7 @@ export default function Login(){
                                         Login
                                     </button>
                                 </div>
-                                <p className="mt-6 text-sm font-light text-gray-500 dark:text-gray-400">
+                                <p className="www mt-6 text-sm font-light text-gray-500 dark:text-gray-400">
                                     Dont have an account yet? 
                                     <Link 
                                         to={'/signup'} 

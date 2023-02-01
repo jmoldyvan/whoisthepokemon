@@ -12,7 +12,7 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <AuthProvider>
+    <AuthProvider >
       <BrowserRouter>
         <ErrorMessage />
           <Routes>

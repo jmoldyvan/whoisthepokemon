@@ -162,7 +162,7 @@ function giveUpRevealAnswer(){
 randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
 
     return(
-        <div>
+        <div >
             {currentUser ? <h3>Hello {currentUser.displayName}</h3> : <h3>Hello</h3>}
             <h3>Who's That Pokemon?</h3>
             {randomPokemonInfo ? <img style={pokemonShadow} src={randomPokemonInfo.sprites.other['official-artwork']['front_default']}></img> : <img></img>}
