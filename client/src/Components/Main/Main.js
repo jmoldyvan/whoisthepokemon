@@ -30,12 +30,7 @@ export default function Main(){
     { name: 'gen7', range: [722, 809], selected: true },
     { name: 'gen8', range: [810, 905], selected: true },
     { name: 'gen9', range: [906, 1000], selected: true },
-    ])
-
-function randomNumber(){
-    let randNum = Math.floor(Math.random() * 1000)
-    return randNum
-}     
+    ])  
 
 function getSelectedRanges(genertaions){
     const selectedRanges = genertaions
@@ -49,7 +44,7 @@ function getSelectedRanges(genertaions){
 }
 
 console.log(getSelectedRanges(genertaions));
-async function getPokemonInfo(gens) {        
+async function getPokemonInfo() {        
     try {
         const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${getSelectedRanges(genertaions)}/`);
         if(!res.data.sprites.other['official-artwork']['front_default']){
@@ -112,6 +107,9 @@ async function allNamesOfPokemon() {
         updateAllScores()
         updateHighScores()
     }, [comboTracker]);
+    useEffect(() => {
+        updateHighScores()
+    });
 
 async function updateAllScores(){
     try {
@@ -136,6 +134,7 @@ function takeGuess(guess){
     let pokeGuess = guess
     setWinCondition(randomPokemonInfo.name === pokeGuess ? true : false)
     setcomboTracker(prevValue => { return randomPokemonInfo.name === pokeGuess ? prevValue + 1 : prevValue=0})
+    updateHighScores()
   }
 
 const styles = {

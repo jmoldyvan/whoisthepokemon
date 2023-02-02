@@ -1,17 +1,9 @@
 import React, {useState, useEffect} from "react"
-import { useAuth } from "../../../src/contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
 import { getAllHighScore } from "../UserCred/Services";
 import { XCircleIcon } from "@heroicons/react/solid";
 
 export default function Leaderboard(props){
-    const navigate = useNavigate(); 
-    const { currentUser, setError } = useAuth();
     const [highScoreList, sethighScoreList] = useState()
-    // const [logInData, setLogInData] = useState({
-    //     email: "",
-    //     password:"",
-    // })
 
     useEffect(() => {
         fillInLeaderboard()
@@ -21,7 +13,6 @@ export default function Leaderboard(props){
         try {
             console.log('leader');
             let allHighScores = await getAllHighScore()
-            // console.log('leader');
             sethighScoreList(allHighScores)            
         } catch (error) {
             console.log(error);

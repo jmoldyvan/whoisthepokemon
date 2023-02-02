@@ -64,6 +64,7 @@ export async function updateHighScore(req, res) {
       { uid: userUid },
       { highScore: userObj[0].score}
       );
+      console.log(userInfo);
       return res.json(userInfo);
     }
   } catch (err) {
@@ -76,7 +77,6 @@ export async function getAllHighScore(req, res) {
     let onlyHSandUserName = userInfo.map((x, i) => {
       return {highScore:x.highScore, user:x.user, id:(i+1)}
     })
-    console.log(onlyHSandUserName);
     return res.json(userInfo);
   } catch (err) {
     console.log(err);
