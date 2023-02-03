@@ -26,6 +26,7 @@ async function generateRandomPokemon(){
     setWinCondition(false)
     let pokemonInfo = await getPokemonInfo()
     await setRandomPokemonInfo(pokemonInfo)
+    return true
     } catch (error) {
         console.log(error);
     }
@@ -41,7 +42,7 @@ async function allNamesOfPokemon() {
             return {name:x.name, id:(i+1)}
         })        
         await setPokemonNames(allNames)
-
+        return true
     } catch (error) {
         console.log(error);
     }
@@ -49,19 +50,20 @@ async function allNamesOfPokemon() {
 
     useEffect(() => {
         if(!currentUser){
-        navigate("/login");
-        }
-    }, []);
-    useEffect(() => {
+            navigate("/login");
+            }
         generateRandomPokemon()
         allNamesOfPokemon()
+    }, [ ]);
+    useEffect(() => {
+        if(!currentUser){
+            navigate("/login");
+            }
     }, []);
     useEffect(() => {
         updateAllScores()
-    }, [comboTracker]);
-    useEffect(() => {
         updateHighScores()
-    });
+    }, [comboTracker]);
 
 async function updateAllScores(){
     try {
@@ -91,6 +93,11 @@ function takeGuess(guess){
 const styles = {
     pointerEvents : winCondition === true ? "none" : "all",
 }
+
+const oppositeStyles = {
+    pointerEvents : winCondition === false ? "none" : "all",
+}
+
 const pokemonShadow = {
     filter : winCondition === false ? 'brightness(0)' : null,
     pointerEvents : "none"
@@ -106,6 +113,7 @@ function handleChange(event) {
 }
 function handleSubmit(event) {
     event.preventDefault()
+    setSearchString("");
 }
 
 function toggleLeaderboard() {
@@ -152,7 +160,7 @@ const handleOnSelect = (item) => {
                     className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">TAKE GUESS
                 </button>
             </form>                
-                <button className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" onClick={generateRandomPokemon} >Next Pokemon</button>
+                <button style={oppositeStyles} className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" onClick={generateRandomPokemon} >Next Pokemon</button>
                 <button
                     style={styles}  
                     className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" 
