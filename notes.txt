@@ -26,14 +26,14 @@
 
 [X] give up button (lose combo) (reveal pokemon)
 
-[] leaderboard is broken
+[X] leaderboard is broken
 
 [X] take guess reveals answer
 
 [] autocomplete for guessing
 
-[] if it doesnt have a im, get next pokemon
+[X] if it doesnt have a im, get next pokemon
 
-[] fix draggin from mouse
+[X] fix draggin from mouse
 
 [] get req for different generations of pokemon

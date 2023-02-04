@@ -80,7 +80,8 @@ const styles = {
     pointerEvents : winCondition === true ? "none" : "all",
 }
 const pokemonShadow = {
-    filter : winCondition === false ? 'brightness(0)' : null
+    filter : winCondition === false ? 'brightness(0)' : null,
+    pointerEvents : "none"
 }
 
 function handleChange(event) {
