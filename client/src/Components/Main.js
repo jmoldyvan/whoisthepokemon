@@ -24,24 +24,34 @@ export default function Main(){
     // getUserScore(currentUser)
 
 async function generateRandomPokemon(){
+    try {
     setWinCondition(false)
     let pokemonInfo = await getPokemonInfo()
-    setRandomPokemonInfo(pokemonInfo)
+    await setRandomPokemonInfo(pokemonInfo)
+    } catch (error) {
+        console.log(error);
+    }
   }
 
-  useEffect(() => {
-    generateRandomPokemon()
-    if(!currentUser){
-    navigate("/login");
-}
-}, []);
+  randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
+  randomPokemonInfo?console.log(randomPokemonInfo):console.log(null)
 
-useEffect(() => {
-    updateAllScores()
-}, [comboTracker]);
-useEffect(() => {
-    updateHighScores()
-});
+  useEffect(() => {
+        if(!currentUser){
+        navigate("/login");
+        }
+    }, []);
+
+  useEffect(() => {
+        generateRandomPokemon()
+    }, []);
+
+    useEffect(() => {
+        updateAllScores()
+    }, [comboTracker]);
+    useEffect(() => {
+        updateHighScores()
+    });
 
 async function updateAllScores(){
     try {
@@ -63,9 +73,9 @@ async function updateHighScores(){
 }
 
 function takeGuess(guess){
-    let numberGuess = Number(guess.guess)
-    setWinCondition(randomPokemonInfo['name'] === numberGuess ? true : false)
-    setcomboTracker(prevValue => { return randomPokemonInfo['name'] === numberGuess ? prevValue + 1 : prevValue=0})
+    let pokeGuess = guess.guess
+    setWinCondition(randomPokemonInfo.name === pokeGuess ? true : false)
+    setcomboTracker(prevValue => { return randomPokemonInfo.name === pokeGuess ? prevValue + 1 : prevValue=0})
   }
 
 const styles = {
@@ -88,11 +98,13 @@ function toggleLeaderboard() {
     setLeaderboardBool(prevValue => !prevValue)
 }
 
-console.log(randomPokemonInfo['name']);
+
+
     return(
         <div>
             {currentUser ? <h3>Hello {currentUser.displayName}</h3> : <h3>Hello</h3>}
             <h3>Who's That Pokemon?</h3>
+            {randomPokemonInfo ? <img src={randomPokemonInfo.sprites.other['official-artwork']['front_default']}></img> : <img></img>}
             {winCondition && <h3>correct</h3>}
             <form onSubmit={handleSubmit}>
                 <input name="guess" onChange={handleChange}></input>
