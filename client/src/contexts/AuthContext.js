@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
     return updateProfile(user, userName);
   }
 
-  function passwordReset(user, email){
+  function passwordReset(email){
     return sendPasswordResetEmail(auth, email)
   }
 

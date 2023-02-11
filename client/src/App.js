@@ -4,6 +4,7 @@ import './App.css';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Main from './Components/Main';
+import ForgotPassword from './Components/ForgotPassword';
 import { AuthProvider } from './contexts/AuthContext';
 import ErrorMessage from "./Components/ErrorMessage";
 
@@ -21,6 +22,7 @@ export default function App() {
             </Route>
             <Route path = '/' element={< Main/>} />
             <Route path='/signup' element={<Signup />} />
+            <Route path='/forgotpassword' element={<ForgotPassword />} />
           </Routes>
       </BrowserRouter>
     </AuthProvider>
