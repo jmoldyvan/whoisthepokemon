@@ -34,7 +34,6 @@ export async function getUserHighScore(req, res) {
     const userRecord = await auth.getUser(req.user.uid);
     const userUid = userRecord.uid
     const userInfo = await Users.find({ uid: userUid });
-    console.log(`${userInfo[0].highScore} after score`);
     return res.json(userInfo[0].highScore);
   } catch (err) {
     console.log(err);
@@ -61,17 +60,28 @@ export async function updateHighScore(req, res) {
     const userRecord = await auth.getUser(req.user.uid);
     const userUid = userRecord.uid
     let userObj = await Users.find({ uid: userUid });
-    console.log(`${userObj[0].score} score`);
-    console.log(`${userObj[0].highScore} highscore`);
     if(userObj[0].score > userObj[0].highScore){
         const userInfo = await Users.findOneAndUpdate(
       { uid: userUid },
       { highScore: userObj[0].score}
       );
-      // console.log(`${userInfo} after score`);
       return res.json(userInfo);
     }
   } catch (err) {
     console.log(err);
   }
 }
+// export async function checkUserName(req, res) {
+//   try {
+//     console.log(req);
+//     let userObj = await Users.find({ user: req });
+//     if(userObj){
+//       return res.json("username already exists");
+//     }
+//     else{
+//       res.json("good to go")
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }

@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import { useAuth } from "../contexts/AuthContext";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postUser } from "./Services";
+import { postUser, checkUserName } from "./Services";
 
 export default function Signup(){
     
@@ -40,7 +40,6 @@ export default function Signup(){
     async function updateUserName(currentUser){
         try {
             await updateUser(currentUser, {displayName: signUpData.userName})
-            console.log(currentUser);
             postUser(currentUser)
             navigate("/");
         } catch (error) {
@@ -58,9 +57,9 @@ export default function Signup(){
         }
         try {
             setLoading(true);
+            // await checkUserName(signUpData.userName)
             await register(signUpData.email, signUpData.password);
           } catch (event) {
-            console.log(event.code);
             if(event.code == 'auth/email-already-in-use'){
                 alert('this email is already in use')
             }

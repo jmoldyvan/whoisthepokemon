@@ -10,10 +10,12 @@ export default function Main(){
     const navigate = useNavigate();
     const [randomNumber, setRandomNumber] = useState(0)
     const [winCondition, setWinCondition] = useState(false)
+    const [scoreCondition, setScoreCondition] = useState(false)
     const [comboTracker, setcomboTracker] = useState(0)
     const [highscoreTracker, setHighScoreTracker] = useState(0)
     let [userAnswer, setUserAnswer] = useState('')
     const [formData, setFormData] = React.useState()
+
 
 // on initital render get the users score and put that value into the combo tracker state
     // getUserScore(currentUser)
@@ -34,24 +36,30 @@ function randomNumberBetweenOneAndTen(){
 useEffect(() => {
     updateAllScores()
 }, [comboTracker]);
+useEffect(() => {
+    updateHighScores()
+});
 
 async function updateAllScores(){
     try {
-        let userHS = await (getUserHighScore(currentUser))
-        console.log(userHS);
-        setHighScoreTracker(userHS)
-        console.log('main');
         await updateScore(currentUser, comboTracker)
-        console.log('main2');
         await updateHighScore(currentUser, comboTracker)
-        console.log('main3');
+        setScoreCondition(!scoreCondition)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function updateHighScores(){
+    try {
+        let userHS = await (getUserHighScore(currentUser))
+        setHighScoreTracker(userHS)
     } catch (error) {
         console.log(error);
     }
 }
 
 function takeGuess(guess){
-    console.log(guess.guess);
     let numberGuess = Number(guess.guess)
     setWinCondition(randomNumber === numberGuess ? true : false)
     setcomboTracker(prevValue => { return randomNumber === numberGuess ? prevValue + 1 : prevValue=0})
@@ -62,7 +70,6 @@ const styles = {
 }
 
 function handleChange(event) {
-    console.log(event);
     setFormData(prevFormData => {
         return {
             ...prevFormData,
@@ -75,7 +82,6 @@ function handleSubmit(event) {
 }
 
 console.log(randomNumber);
-// console.log(currentUser);
     return(
         <div>
             {currentUser ? <h3>Hello {currentUser.displayName}</h3> : <h3>Hello</h3>}

@@ -10,9 +10,9 @@
 
 [] cant have same username
 
-[] fix high score larg
+[X] fix high score larg
 
-[] fix high score when new user signs in
+[X] fix high score when new user signs in
 
 [] forgot password, enter email to make new pasword
 

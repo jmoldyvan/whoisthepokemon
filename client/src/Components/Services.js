@@ -42,7 +42,7 @@ export const updateHighScore = async (userId, score) => {
   const headers = await createHeader();
   try {
     const res = await axios.put(`${baseURL}/updateHighScore`,{userId, score}, {headers});
-
+    console.log(res.data);
     return res.data;
   } catch (error) {
     console.error(error);
@@ -54,12 +54,21 @@ export const getUserHighScore = async () => {
   const headers = await createHeader();
   try {
     const res = await axios.get(`${baseURL}/getUserHighScore`, {headers});
-    console.log(res.data);
     return res.data;
   } catch (error) {
     console.error(error);
   }
 };
+// export const checkUserName = async (userName) => {
+
+//   try {
+//     const res = await axios.get(`${baseURL}/checkUserName`, {userName});
+//     console.log(res.data);
+//     return res.data;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 // export const getAllHighScore = async (userId, score) => {
 
