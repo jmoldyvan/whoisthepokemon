@@ -29,12 +29,13 @@ export async function deleteUser(req, res) {
     res.json("error");
   }
 }
-export async function getUserScore(req, res) {
+export async function getUserHighScore(req, res) {
   try {
     const userRecord = await auth.getUser(req.user.uid);
     const userUid = userRecord.uid
-    const userInfo = await Users.find({ score: userUid });
-    return res.json(userInfo.score);
+    const userInfo = await Users.find({ uid: userUid });
+    console.log(`${userInfo[0].highScore} after score`);
+    return res.json(userInfo[0].highScore);
   } catch (err) {
     console.log(err);
   }
@@ -48,7 +49,7 @@ export async function updateScore(req, res) {
       { uid: userUid },
       { score: req.body.score}
       );
-          console.log(userInfo);
+          // console.log(userInfo);
     return res.json(userInfo);
   } catch (err) {
     console.log(err);
@@ -60,12 +61,14 @@ export async function updateHighScore(req, res) {
     const userRecord = await auth.getUser(req.user.uid);
     const userUid = userRecord.uid
     let userObj = await Users.find({ uid: userUid });
-    console.log(`${userObj} score`);
-    if(userObj.score > userObj.highScore){
+    console.log(`${userObj[0].score} score`);
+    console.log(`${userObj[0].highScore} highscore`);
+    if(userObj[0].score > userObj[0].highScore){
         const userInfo = await Users.findOneAndUpdate(
       { uid: userUid },
-      { highScore: req.body.score}
+      { highScore: userObj[0].score}
       );
+      // console.log(`${userInfo} after score`);
       return res.json(userInfo);
     }
   } catch (err) {

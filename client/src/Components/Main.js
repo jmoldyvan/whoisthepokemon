@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Logout from "./Logout";
 import { Link, useNavigate } from "react-router-dom";
-import { updateScore, getUserScore, updateHighScore } from "./Services";
+import { updateScore, getUserScore, updateHighScore, getUserHighScore } from "./Services";
 
 export default function Main(){
 
@@ -11,6 +11,7 @@ export default function Main(){
     const [randomNumber, setRandomNumber] = useState(0)
     const [winCondition, setWinCondition] = useState(false)
     const [comboTracker, setcomboTracker] = useState(0)
+    const [highscoreTracker, setHighScoreTracker] = useState(0)
     let [userAnswer, setUserAnswer] = useState('')
     const [formData, setFormData] = React.useState()
 
@@ -36,8 +37,14 @@ useEffect(() => {
 
 async function updateAllScores(){
     try {
+        let userHS = await (getUserHighScore(currentUser))
+        console.log(userHS);
+        setHighScoreTracker(userHS)
+        console.log('main');
         await updateScore(currentUser, comboTracker)
+        console.log('main2');
         await updateHighScore(currentUser, comboTracker)
+        console.log('main3');
     } catch (error) {
         console.log(error);
     }
@@ -68,7 +75,7 @@ function handleSubmit(event) {
 }
 
 console.log(randomNumber);
-console.log(currentUser);
+// console.log(currentUser);
     return(
         <div>
             {currentUser ? <h3>Hello {currentUser.displayName}</h3> : <h3>Hello</h3>}
@@ -82,6 +89,7 @@ console.log(currentUser);
                 </button>
                 <button onClick={randomNumberBetweenOneAndTen} >Next Number</button>
                 <h1>You Have {comboTracker} combo</h1>
+                <h1>Your HighScore {highscoreTracker}</h1>
                 <Logout />
             </form>
         </div>
