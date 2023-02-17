@@ -9,4 +9,5 @@ const app = initializeApp({
   
   const auth = getAuth(app);
 
+  
 module.exports = auth
