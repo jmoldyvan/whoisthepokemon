@@ -2,6 +2,8 @@ import React, {useState} from "react"
 import { useAuth } from "../contexts/AuthContext";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { postUser } from "./Services";
+import axios from "axios";
 
 export default function Signup(){
     
@@ -21,6 +23,9 @@ export default function Signup(){
           navigate("/login");
         }
       }, [currentUser, navigate]);
+      useEffect(() => {
+        postUser(currentUser)
+      }, [currentUser]);
 
       function handleChange(event) {
         setSignUpData(prevFormData => {

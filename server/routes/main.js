@@ -19,5 +19,4 @@ import { createUser, getUsers, deleteUser} from '../controllers/user.js'
 router.post('/signup', createUser)
 
 
-
 export default router

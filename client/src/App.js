@@ -21,8 +21,6 @@ export default function App() {
             </Route>
             <Route path = '/' element={< Main/>} />
             <Route path='/signup' element={<Signup />} />
-              
-              
           </Routes>
       </BrowserRouter>
     </AuthProvider>

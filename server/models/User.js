@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   user: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "User"
   }
 });

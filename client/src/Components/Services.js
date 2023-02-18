@@ -1,6 +1,7 @@
 import axios from "axios";
 import auth from "../config/firebase";
 
+const baseURL = "http://localhost:5000/";
 
 const getUserToken = async () => {
   const user = auth.currentUser;
@@ -19,3 +20,14 @@ const createHeader = async () => {
   };
   return payloadHeader;
 };
+
+export const postUser = async (userInfo) => {
+  const header = await createHeader();
+
+  try {
+    const res = await axios.post(`${baseURL}/signup`, header);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
