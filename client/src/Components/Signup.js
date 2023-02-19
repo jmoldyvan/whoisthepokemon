@@ -53,6 +53,10 @@ export default function Signup(){
           setLoading(false);
     }
 
+    const postSignUp = async () =>{
+        let response = await axios.post()
+    }
+
     return(
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="px-20 py-10 mt-4 text-left bg-white shadow-lg" >

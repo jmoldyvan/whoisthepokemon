@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   score: {
     type: Number,
     required: true,
@@ -11,4 +11,6 @@ const UserSchema = new Schema({
   }
 });
 
-export default model("Users", UserSchema, "Users");
+
+const Users = mongoose.model("Users", UserSchema, "Users");
+export default Users

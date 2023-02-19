@@ -1,14 +1,16 @@
-import { create, findById, find } from "../models/User.js";
-// const User = require("../models/User");
+import Users from "../models/User.js";
+import auth from "../config/firebase-config.js";
 
 export async function createUser(req, res) {
   try {
-    await create({
-      User: 0,
-      user: req.body.user,
+    const userRecord = await auth.getUser(req.params.userId);
+    const currUserName = userRecord.displayName
+    await Users.create({
+      score: 0,
+      user: currUserName,
     });
     console.log("User has been added!");
-    res.json({ User });
+    res.json({ Users });
   } catch (err) {
     console.log(err);
   }
@@ -17,7 +19,7 @@ export async function deleteUser(req, res) {
   try {
     console.log(req.body);
     // Find post by id - the following checks that it exists
-    let chosenUser = await findById({ _id: req.body._id });
+    let chosenUser = await Users.findById({ _id: req.body._id });
     // Delete image from cloudinary
     // await cloudinary.uploader.destroy(post.cloudinaryId);
     // Delete post from db
@@ -30,7 +32,7 @@ export async function deleteUser(req, res) {
 }
 export async function getUsers(req, res) {
   try {
-    const allUsersInfo = await find({});
+    const allUsersInfo = await Users.find({});
     console.log(allUsersInfo);
     return res.json(allUsersInfo);
   } catch (err) {
