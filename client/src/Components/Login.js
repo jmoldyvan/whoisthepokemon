@@ -1,7 +1,23 @@
-import React from "react"
+import React, {useState} from "react"
+import { useAuth } from "../contexts/AuthContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login(){
 
+    const [logInData, setLogInData] = useState({
+        email: "",
+        password:"",
+    })
+
+    function handleChange(event) {
+        setLogInData(prevFormData => {
+            return {
+                ...prevFormData,
+                [event.target.name]: event.target.value
+            }
+        })
+    }
 
     return(
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -11,18 +27,37 @@ export default function Login(){
                     <div className="mt-4">
                         <div className="mt-4">
                             <h4 className="block font-bold" >Email</h4>
-                            <input type='text' className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" placeholder="email"></input>
+                            <input 
+                                name="email"
+                                type='text' 
+                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" 
+                                placeholder="email"
+                                value={logInData.email}>
+                            </input>
                         </div>
                         <div className="mt-4" >  
                             <h4 className="block font-bold">Password</h4>
-                            <input type='text' className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" placeholder="password"></input>
+                            <input 
+                                name="password"
+                                type='text' 
+                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" 
+                                placeholder="password"
+                                value={logInData.password}>
+                            </input>
                         </div>
-                        <span className="text-sm text-blue-600 hover:underline">Forgot Password?</span>
+                        <span className="text-sm text-blue-600 hover:underline">
+                            Forgot Password?
+                        </span>
                         <div className="flex items-baseline justify-between">
-                            <button type="submit" className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Login</button>
+                            <button 
+                                type="submit" 
+                                className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
+                                Login
+                            </button>
                         </div>
                         <p className="mt-6 text-sm font-light text-gray-500 dark:text-gray-400">
-                      Dont have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">Sign up</a>
+                      Dont have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
+                        Sign up</a>
                   </p>
                     </div>
                 </form>

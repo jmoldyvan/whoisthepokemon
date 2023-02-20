@@ -1,11 +1,10 @@
-
+import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Main from './Components/Main';
-import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
-
+import { AuthProvider } from './contexts/AuthContext'
 
 
 
@@ -37,19 +36,22 @@ function takeGuess(guess){
 console.log(winCondition);
 
   return (
-    <BrowserRouter>
-        <Routes>
-          <Route exact path='/'> {isLoggedIn ? <Navigate to="/main" /> : <Login />}
-          </Route>
-          <Route path = '/main' element={<>< Main
-              takeGuess={takeGuess}
-              winCondition={winCondition}
-              winTracker={winTracker} /> </>} 
-          />
-                <Route path='/signup' element={<Signup />} />
-             
-            
-        </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+          <Routes>
+            <Route exact path='/login' element={<Login />}>
+            {/* {isLoggedIn ? <Navigate to="/main" /> : <Login />} */}
+            </Route>
+            <Route path = '/' element={<>< Main
+                takeGuess={takeGuess}
+                winCondition={winCondition}
+                winTracker={winTracker} /> </>} 
+            />
+                  <Route path='/signup' element={<Signup />} />
+              
+              
+          </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
