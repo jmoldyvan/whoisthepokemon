@@ -37,6 +37,7 @@ function handleSubmit(event) {
                 className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">TAKE GUESS
                 </button>
                 <button>Next Number</button>
+                <h1>{props.winTracker}</h1>
             </form>
         </div>
     )
