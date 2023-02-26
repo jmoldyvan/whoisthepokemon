@@ -1,13 +1,18 @@
 const express =  require('express')
 const router = express.Router()
 const authController = require('../controllers/auth') 
+const scoreController = require('../controllers/score')
 const profilePostController = require('../controllers/profilepost')
 const { ensureAuth } = require('../middleware/auth')
 
-router.get('/hotspringdbinfo', hotSpringController.getHSDBInfo)
+
+router.post("/createscore/:id", scoreController.createScore);
+router.get('/scoreInfo', scoreController.getScores)
+// router.put("/likescore/:id", scoreController.addLike)
+router.delete("/deletescore/:id", scoreController.deleteScore);
 
 // ****************************
-router.put('/hotspringdbinfo/like/:id', hotSpringController.addLike)
+// router.put('/hotspringdbinfo/like/:id', hotSpringController.addLike)
 // ****************************
 
 router.post('/login', authController.postLogin)
