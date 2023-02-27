@@ -5,7 +5,6 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Main from './Components/Main';
 import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
-import fire from './Fire.js';
 
 
 
@@ -16,13 +15,6 @@ export default function App() {
   const [winCondition, setWinCondition] = useState(false)
   const [winTracker, setWinTracker] = useState(0)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // AUTH
-  fire.auth().onAuthStateChanged((user) => {
-    return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
-});
-
-
 
 function randomNumberBetweenOneAndTen(){
   let number = Math.floor(Math.random() * 10)
