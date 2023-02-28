@@ -4,8 +4,8 @@ import './App.css';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Main from './Components/Main';
-import { AuthProvider } from './contexts/AuthContext'
-
+import { AuthProvider } from './contexts/AuthContext';
+import ErrorMessage from "./Components/ErrorMessage";
 
 
 export default function App() {
@@ -38,6 +38,7 @@ console.log(winCondition);
   return (
     <AuthProvider>
       <BrowserRouter>
+        <ErrorMessage />
           <Routes>
             <Route exact path='/login' element={<Login />}>
             {/* {isLoggedIn ? <Navigate to="/main" /> : <Login />} */}

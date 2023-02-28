@@ -46,7 +46,6 @@ export function AuthProvider({ children }) {
     login,
     register,
     logout,
-    // updateUserProfile,
   };
 
   return (

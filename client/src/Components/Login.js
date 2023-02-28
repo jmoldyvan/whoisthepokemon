@@ -1,14 +1,22 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import { useAuth } from "../contexts/AuthContext";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login(){
+    const navigate = useNavigate(); 
+    const { currentUser, login, setError } = useAuth();
 
+    const [loading, setLoading] = useState(false);
     const [logInData, setLogInData] = useState({
         email: "",
         password:"",
     })
+
+    useEffect(() => {
+        if (currentUser) {
+          navigate("/");
+        }
+      }, [currentUser, navigate]);
 
     function handleChange(event) {
         setLogInData(prevFormData => {
@@ -19,11 +27,26 @@ export default function Login(){
         })
     }
 
+    async function handleSubmit(e) {
+        e.preventDefault();
+    
+        try {
+          setError("");
+          setLoading(true);
+          await login(logInData.email, logInData.password);
+          navigate("/");
+        } catch (e) {
+          setError("Failed to login");
+        }
+    
+        setLoading(false);
+      }
+
     return(
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="px-20 py-10 mt-4 text-left bg-white shadow-lg" >
                 <h3 className="text-2xl font-bold text-center">Login To Your Account</h3>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="mt-4">
                         <div className="mt-4">
                             <h4 className="block font-bold" >Email</h4>

@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 export default function Signup(){
     
     const navigate = useNavigate();
-    const { currentUser, register } = useAuth();
+    const { currentUser, register, setError } = useAuth();
+
     const [loading, setLoading] = useState(false);
     const [signUpData, setSignUpData] = useState({
         email: "",
@@ -30,13 +31,23 @@ export default function Signup(){
         })
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault()
         if(signUpData.password === signUpData.confirmPassword) {
             console.log("Successfully signed up")
         } else {
             console.log("Passwords do not match")
+            return alert("Passwords do not match")
         }
+        try {
+            setLoading(true);
+            await register(signUpData.email, signUpData.password, signUpData.userName);
+            navigate("/");
+          } catch (e) {
+            alert("Failed to register");
+          }
+      
+          setLoading(false);
     }
 
     return(
@@ -82,7 +93,10 @@ export default function Signup(){
                             </input>
                         </div>
                         <div className="flex items-baseline justify-between">
-                            <button type="submit" className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
+                            <button 
+                                disabled={loading}
+                                type="submit" 
+                                className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
                                 Login
                             </button>
                         </div>
