@@ -51,6 +51,7 @@ export default function Login(){
                         <div className="mt-4">
                             <h4 className="block font-bold" >Email</h4>
                             <input 
+                                onChange={handleChange}
                                 name="email"
                                 type='text' 
                                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" 
@@ -60,7 +61,8 @@ export default function Login(){
                         </div>
                         <div className="mt-4" >  
                             <h4 className="block font-bold">Password</h4>
-                            <input 
+                            <input
+                                onChange={handleChange} 
                                 name="password"
                                 type='text' 
                                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" 
@@ -79,8 +81,8 @@ export default function Login(){
                             </button>
                         </div>
                         <p className="mt-6 text-sm font-light text-gray-500 dark:text-gray-400">
-                      Dont have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
-                        Sign up</a>
+                      Dont have an account yet? <Link to={'/signup'} class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
+                        Sign up</Link>
                   </p>
                     </div>
                 </form>

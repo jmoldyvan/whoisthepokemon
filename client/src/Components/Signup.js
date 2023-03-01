@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import { useAuth } from "../contexts/AuthContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup(){
     
@@ -13,7 +13,7 @@ export default function Signup(){
         email: "",
         password:"",
         confirmPassword:"",
-        userName:""
+        // userName:""
     })
     
       useEffect(() => {
@@ -41,9 +41,10 @@ export default function Signup(){
         }
         try {
             setLoading(true);
-            await register(signUpData.email, signUpData.password, signUpData.userName);
+            console.log(signUpData.email);
+            await register(signUpData.email, signUpData.password);
             navigate("/");
-          } catch (e) {
+          } catch (event) {
             alert("Failed to register");
           }
       
@@ -56,18 +57,22 @@ export default function Signup(){
                 <h3 className="text-2xl font-bold text-center">Register An Account</h3>
                 <form onSubmit={handleSubmit}>
                     <div className="mt-4">
-                        <div className="mt-4">
+                        {/* <div className="mt-4">
                             <h4 className="block font-bold" >User Name</h4>
-                            <input type='text' 
+                            <input
+                                onChange={handleChange}
+                                type='text' 
                                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" 
                                 placeholder="User Name"
                                 name="userName"
                                 value={signUpData.userName}>
                             </input>
-                        </div>
+                        </div> */}
                         <div className="mt-4">
                             <h4 className="block font-bold" >Email</h4>
-                            <input type='text' 
+                            <input 
+                                onChange={handleChange}
+                                type='text' 
                                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" 
                                 placeholder="Email"
                                 name="email"
@@ -76,7 +81,9 @@ export default function Signup(){
                         </div>
                         <div className="mt-4" >  
                             <h4 className="block font-bold">Password</h4>
-                            <input type='text' 
+                            <input 
+                                onChange={handleChange}
+                                type='text' 
                                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" 
                                 placeholder="password"
                                 name="password"
@@ -85,7 +92,9 @@ export default function Signup(){
                         </div>
                         <div className="mt-4" >  
                             <h4 className="block font-bold">Confirm Password</h4>
-                            <input type='text' 
+                            <input 
+                                onChange={handleChange}
+                                type='text' 
                                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" 
                                 placeholder=""
                                 name="confirmPassword"
@@ -102,10 +111,10 @@ export default function Signup(){
                         </div>
                     <p className="mt-6 text-sm font-light text-gray-500 dark:text-gray-400">
                             Already have an account? 
-                        <a href="#" 
+                        <Link to={'/login'} 
                             class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
                         Login
-                        </a>
+                        </Link>
                     </p>
                     </div>
                 </form>

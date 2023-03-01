@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 
 import auth from "../config/firebase";
@@ -19,6 +20,7 @@ export function AuthProvider({ children }) {
   const [error, setError] = useState("");
 
   function register(email, password) {
+    console.log(email);
     return createUserWithEmailAndPassword(auth, email, password);
   }
 
@@ -28,6 +30,10 @@ export function AuthProvider({ children }) {
 
   function logout() {
     return signOut(auth);
+  }
+
+  function updateUser(user, profile) {
+    return updateProfile(user, profile);
   }
 
   useEffect(() => {
@@ -46,6 +52,7 @@ export function AuthProvider({ children }) {
     login,
     register,
     logout,
+    updateUser,
   };
 
   return (
