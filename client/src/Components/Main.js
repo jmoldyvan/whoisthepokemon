@@ -1,14 +1,17 @@
 import React, {useState, useEffect} from "react";
-
+import { useAuth } from "../contexts/AuthContext";
+import Logout from "./Logout";
 
 export default function Main(){
+
+    const { currentUser} = useAuth();
 
     const [randomNumber, setRandomNumber] = useState(0)
     const [winCondition, setWinCondition] = useState(false)
     const [winTracker, setWinTracker] = useState(0)
+    let [userAnswer, setUserAnswer] = useState('')
+    const [formData, setFormData] = React.useState()
 
-let [userAnswer, setUserAnswer] = useState('')
-const [formData, setFormData] = React.useState()
 
 function randomNumberBetweenOneAndTen(){
     setWinCondition(false)
@@ -49,6 +52,7 @@ console.log(randomNumber);
 
     return(
         <div>
+            <h3>Hello {currentUser.displayName}</h3>
             <h3>What Number Am I Thinking Of?</h3>
             {winCondition && <h3>correct</h3>}
             <form onSubmit={handleSubmit}>
@@ -59,6 +63,7 @@ console.log(randomNumber);
                 </button>
                 <button onClick={randomNumberBetweenOneAndTen} >Next Number</button>
                 <h1>You Have {winTracker} combo</h1>
+                <Logout />
             </form>
         </div>
     )

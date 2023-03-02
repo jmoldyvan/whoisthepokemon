@@ -32,8 +32,8 @@ export function AuthProvider({ children }) {
     return signOut(auth);
   }
 
-  function updateUser(user, profile) {
-    return updateProfile(user, profile);
+  function updateUser(user, userName) {
+    return updateProfile(user, userName);
   }
 
   useEffect(() => {

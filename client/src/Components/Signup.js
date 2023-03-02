@@ -6,14 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Signup(){
     
     const navigate = useNavigate();
-    const { currentUser, register, setError } = useAuth();
+    const { currentUser, register, updateUser, setError } = useAuth();
 
     const [loading, setLoading] = useState(false);
     const [signUpData, setSignUpData] = useState({
         email: "",
         password:"",
         confirmPassword:"",
-        // userName:""
+        userName:""
     })
     
       useEffect(() => {
@@ -43,6 +43,8 @@ export default function Signup(){
             setLoading(true);
             console.log(signUpData.email);
             await register(signUpData.email, signUpData.password);
+            let profile = {displayName: signUpData.userName}
+            await updateUser(currentUser, profile)
             navigate("/");
           } catch (event) {
             alert("Failed to register");
@@ -57,7 +59,7 @@ export default function Signup(){
                 <h3 className="text-2xl font-bold text-center">Register An Account</h3>
                 <form onSubmit={handleSubmit}>
                     <div className="mt-4">
-                        {/* <div className="mt-4">
+                        <div className="mt-4">
                             <h4 className="block font-bold" >User Name</h4>
                             <input
                                 onChange={handleChange}
@@ -67,7 +69,7 @@ export default function Signup(){
                                 name="userName"
                                 value={signUpData.userName}>
                             </input>
-                        </div> */}
+                        </div>
                         <div className="mt-4">
                             <h4 className="block font-bold" >Email</h4>
                             <input 
