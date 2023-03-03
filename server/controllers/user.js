@@ -1,38 +1,38 @@
-const Score = require("../models/Score");
+const User = require("../models/User");
 // const User = require("../models/User");
 
 module.exports = {
-  createScore: async (req, res) => {
+  createUser: async (req, res) => {
     try {
-      await Score.create({
-        score: 0,
+      await User.create({
+        User: 0,
         user: req.body.user,
       });
-      console.log("Score has been added!");
-      res.json({Score}); 
+      console.log("User has been added!");
+      res.json({User}); 
     } catch (err) {
       console.log(err);
     }
   },
   // addLike: async (req,res)=>{
-  // //like Score from specific post view
+  // //like User from specific post view
   //   try {
   //     //check if userid is in the array for that post, = already liked it
-  //     let chosenScore = await Score.findOne(
+  //     let chosenUser = await User.findOne(
   //       {_id: req.params.id, usersWhoLiked: req.user._id });
-  //     if (chosenScore){
-  //       await Score.findOneAndUpdate(
+  //     if (chosenUser){
+  //       await User.findOneAndUpdate(
   //         { _id: req.params.id },
   //         {
   //           $inc: { likes: -1 },
   //           $pullAll: { 'usersWhoLiked': [req.user.id] } 
   //         }
   //       );
-  //       console.log("Score Likes-1 and user from array");
-  //       //back to the relevant post where the Score is shown
-  //       res.json({msg: "Score Likes-1 and user from array"})
+  //       console.log("User Likes-1 and user from array");
+  //       //back to the relevant post where the User is shown
+  //       res.json({msg: "User Likes-1 and user from array"})
   //     } else {
-  //       const addLikeScore = await Score.findOneAndUpdate(
+  //       const addLikeUser = await User.findOneAndUpdate(
   //         { _id: req.params.id },
   //         {
   //           $inc: { likes: 1 },
@@ -40,8 +40,8 @@ module.exports = {
   //         }
   //       );
   //       console.log("Likes +1");
-  //     //back to the relevant post where the Score is shown
-  //     res.json({msg: addLikeScore}); 
+  //     //back to the relevant post where the User is shown
+  //     res.json({msg: addLikeUser}); 
   //     }
       
   //   } catch (err) {
@@ -49,26 +49,26 @@ module.exports = {
   //   }
   
   // },
-  deleteScore: async (req, res) => {
+  deleteUser: async (req, res) => {
     try {
       console.log(req.body);
       // Find post by id - the following checks that it exists
-      let chosenScore = await Score.findById({ _id: req.body._id });
+      let chosenUser = await User.findById({ _id: req.body._id });
       // Delete image from cloudinary
       // await cloudinary.uploader.destroy(post.cloudinaryId);
       // Delete post from db
-      await chosenScore.deleteOne({ _id: req.body._id });
-      console.log("Deleted Score");
-      res.json("Deleted Score");
+      await chosenUser.deleteOne({ _id: req.body._id });
+      console.log("Deleted User");
+      res.json("Deleted User");
     } catch (err) {
       res.json("error");
     }
   },    
-  getScores: async (req,res)=>{
+  getUsers: async (req,res)=>{
     try{
-        const allScoresInfo = await Score.find({})
-        console.log(allScoresInfo)  
-        return res.json(allScoresInfo)          
+        const allUsersInfo = await User.find({})
+        console.log(allUsersInfo)  
+        return res.json(allUsersInfo)          
     }catch(err){
         console.log(err)
     }

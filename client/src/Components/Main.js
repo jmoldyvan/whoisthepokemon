@@ -1,16 +1,19 @@
 import React, {useState, useEffect} from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Logout from "./Logout";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Main(){
 
     const { currentUser} = useAuth();
-
+    const navigate = useNavigate();
     const [randomNumber, setRandomNumber] = useState(0)
     const [winCondition, setWinCondition] = useState(false)
     const [winTracker, setWinTracker] = useState(0)
     let [userAnswer, setUserAnswer] = useState('')
     const [formData, setFormData] = React.useState()
+
+
 
 
 function randomNumberBetweenOneAndTen(){
@@ -21,7 +24,11 @@ function randomNumberBetweenOneAndTen(){
 
   useEffect(() => {
     randomNumberBetweenOneAndTen()
+    if(!currentUser){
+    navigate("/login");
+}
 }, []);
+
 
 function takeGuess(guess){
     console.log(guess.guess);
@@ -45,15 +52,16 @@ function handleChange(event) {
 }
 function handleSubmit(event) {
     event.preventDefault()
-    // console.log(formData)
 }
 
 console.log(randomNumber);
+console.log(currentUser);
+
 
     return(
         <div>
-            <h3>Hello {currentUser.displayName}</h3>
-            <h3>What Number Am I Thinking Of?</h3>
+            {currentUser ? <h3>Hello {currentUser.displayName}</h3> : <h3>Hello</h3>}
+            <h3>What Number Am I Thinking Of? ONLY 1-10</h3>
             {winCondition && <h3>correct</h3>}
             <form onSubmit={handleSubmit}>
                 <input name="guess" onChange={handleChange}></input>

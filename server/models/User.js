@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const ScoreSchema = new mongoose.Schema({
-  likes: {
+const UserSchema = new mongoose.Schema({
+  score: {
     type: Number,
     required: true,
   },
@@ -11,4 +11,4 @@ const ScoreSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Scores", ScoreSchema, "Scores");
+module.exports = mongoose.model("Users", UserSchema, "Users");
