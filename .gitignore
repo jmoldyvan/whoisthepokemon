@@ -3,3 +3,7 @@
 
 /client/node_modules
 /client/src/config/.env
+
+/config/.env
+.env
+node_modules
