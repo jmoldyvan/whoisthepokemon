@@ -8,11 +8,9 @@ import { AuthProvider } from './contexts/AuthContext';
 import ErrorMessage from "./Components/ErrorMessage";
 
 export default function App() {
-  // const [randomNumber, setRandomNumber] = useState(0)
-  // const [winCondition, setWinCondition] = useState(false)
-  // const [winTracker, setWinTracker] = useState(0)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  
 
   return (
     <AuthProvider>
