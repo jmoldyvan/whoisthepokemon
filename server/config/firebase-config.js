@@ -1,13 +1,13 @@
-let initializeApp = require('firebase-admin/app')
-let cert = require('firebase-admin/app')
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getAuth } from "firebase-admin/auth";
 
-let serviceAccountKey = require('./serviceAccountKey.json')
-
+import serviceAccountKey from './serviceAccountKey.json' assert { type: "json" };
+ 
 const app = initializeApp({
     credential: cert(serviceAccountKey),
   });
   
   const auth = getAuth(app);
 
-  
-module.exports = auth
+
+export default auth

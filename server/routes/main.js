@@ -1,23 +1,22 @@
-const express =  require('express')
-const router = express.Router()
-const authController = require('../controllers/auth') 
-const userController = require('../controllers/user')
-const profilePostController = require('../controllers/profilepost')
-const { ensureAuth } = require('../middleware/auth')
+import { Router } from 'express'
+const router = Router()
+// const authController = require('../controllers/auth') 
+// import userController from '../controllers/user.js'
+// const { ensureAuth } = require('../middleware/auth')
 
 
-router.post("/createuser/:id", userController.createUser);
-router.get('/userInfo', userController.getUsers)
+// router.post("/createuser/:id", userController.createUser);
+// router.get('/userInfo', userController.getUsers)
+
+// router.delete("/deleteuser/:id", userController.deleteUser);
 // router.put("/likeuser/:id", userController.addLike)
-router.delete("/deleteuser/:id", userController.deleteUser);
-
 // ****************************
 // router.put('/hotspringdbinfo/like/:id', hotSpringController.addLike)
 // ****************************
 
-router.post('/login', authController.postLogin)
-router.get('/logout', authController.logout)
-router.post('/signup', authController.postSignup)
+// router.post('/login', authController.postLogin)
+// router.get('/logout', authController.logout)
+// router.post('/signup', authController.postSignup)
 
 // ****************************
 // router.get('/getprofilepic/:id', profilePostController.getProfilePost)
@@ -26,4 +25,4 @@ router.post('/signup', authController.postSignup)
 // ****************************
 
 
-module.exports = router
+export default router

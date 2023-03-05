@@ -1,24 +1,27 @@
-const express = require('express')
+import express from 'express'
+import  mongoose  from 'mongoose'
+import session from 'express-session'
+import connectMongo from 'connect-mongo';
+
+const MongoStore = connectMongo(session);
+import  connectDB  from './config/database.js'
+import mainRoutes from './routes/main.js'
+import cors from "cors"
+import { VerifyToken } from './middleware/VerifyToken.js'
+import dotenv from "dotenv";
 const app = express()
-const mongoose = require('mongoose')
-const session = require('express-session')
-const MongoStore = require('connect-mongo')(session)
-const logger = require('morgan')
-const connectDB = require('./config/database')
-const mainRoutes = require('./routes/main')
-const cors = require("cors");
 app.use(cors());
 
-require('dotenv').config({path: './config/.env'})
+dotenv.config({path: './config/.env'})
 
 connectDB()
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(logger('dev'))
-// Sessions
+app.use(VerifyToken);
+// Sessions-
 app.use(
-    session({
+  session({
       secret: 'keyboard cat',
       resave: false,
       saveUninitialized: false,
