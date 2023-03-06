@@ -1,22 +1,36 @@
 import React, {useState, useEffect} from "react"
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { getUser } from "./Services";
 
 export default function Login(){
     const navigate = useNavigate(); 
     const { currentUser, login, setError } = useAuth();
-
     const [loading, setLoading] = useState(false);
     const [logInData, setLogInData] = useState({
         email: "",
         password:"",
     })
 
-    useEffect(() => {
-        if (currentUser) {
-          navigate("/");
+    // useEffect(() => {
+    //     if (currentUser) {
+    //       navigate("/");
+    //     }
+    //   }, [currentUser, navigate]);
+
+      useEffect(() => {
+        getUserFromDB(currentUser)
+      }, [currentUser]);
+
+    async function getUserFromDB(currentUser){
+        try {
+            console.log(currentUser);
+            getUser(currentUser)
+            // navigate("/");
+        } catch (error) {
+            console.log(error);
         }
-      }, [currentUser, navigate]);
+    }
 
     function handleChange(event) {
         setLogInData(prevFormData => {
@@ -33,7 +47,9 @@ export default function Login(){
           setError("");
           setLoading(true);
           await login(logInData.email, logInData.password);
-          navigate("/");
+          console.log(currentUser);
+        //   await getUser(currentUser)
+        //   navigate("/");
         } catch (e) {
           setError("Failed to login");
         }
