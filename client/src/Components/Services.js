@@ -27,4 +27,15 @@ export const postUser = async (userId) => {
   } catch (error) {
     console.error(error);
   }
-}
+};
+export const getUser = async (userId) => {
+  const headers = await createHeader();
+  try {
+    const res = await axios.get(`${baseURL}/login`,{userId}, {headers});
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+

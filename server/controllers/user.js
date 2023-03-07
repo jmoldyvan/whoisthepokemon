@@ -3,13 +3,13 @@ import auth from "../config/firebase-config.js";
 
 export async function createUser(req, res) {
   try {
-    console.log(req.user);
     const userRecord = await auth.getUser(req.user.uid);
-    console.log(userRecord);
     const currUserName = userRecord.displayName
+    const userUid = userRecord.uid
     await Users.create({
       score: 0,
       user: currUserName,
+      uid: userUid
     });
     console.log("User has been added!");
     res.json({ Users });
@@ -29,11 +29,13 @@ export async function deleteUser(req, res) {
     res.json("error");
   }
 }
-export async function getUsers(req, res) {
+export async function getUser(req, res) {
   try {
-    const allUsersInfo = await Users.find({});
-    console.log(allUsersInfo);
-    return res.json(allUsersInfo);
+    const userRecord = await auth.getUser(req.user.uid);
+    const userUid = userRecord.uid
+    const userInfo = await Users.find({ uid: userUid });
+    console.log(userInfo);
+    return res.json(userInfo);
   } catch (err) {
     console.log(err);
   }

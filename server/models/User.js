@@ -8,6 +8,10 @@ const UserSchema = new mongoose.Schema({
   user: {
     type: String,
     ref: "User"
+  },
+  uid: {
+    type: String,
+    required: true,
   }
 });
 

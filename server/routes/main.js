@@ -1,6 +1,6 @@
 import express from 'express'
 const router = express.Router();
-import { createUser, getUsers, deleteUser} from '../controllers/user.js'
+import { createUser, getUser, deleteUser} from '../controllers/user.js'
 
 // const authController = require('../controllers/auth') 
 
@@ -15,7 +15,7 @@ import { createUser, getUsers, deleteUser} from '../controllers/user.js'
 // ****************************
 
 // router.post('/login/:id', createUser)
-// router.get('/logout', authController.logout)
+router.get('/logout', getUser)
 router.post('/signup', createUser)
 
 
