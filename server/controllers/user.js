@@ -22,9 +22,6 @@ export async function deleteUser(req, res) {
     console.log(req.body);
     // Find post by id - the following checks that it exists
     let chosenUser = await Users.findById({ _id: req.body._id });
-    // Delete image from cloudinary
-    // await cloudinary.uploader.destroy(post.cloudinaryId);
-    // Delete post from db
     await chosenUser.deleteOne({ _id: req.body._id });
     console.log("Deleted User");
     res.json("Deleted User");

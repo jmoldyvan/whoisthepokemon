@@ -55,8 +55,6 @@ function handleSubmit(event) {
 }
 
 console.log(randomNumber);
-console.log(currentUser);
-
 
     return(
         <div>

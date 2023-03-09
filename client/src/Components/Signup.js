@@ -3,7 +3,6 @@ import { useAuth } from "../contexts/AuthContext";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postUser } from "./Services";
-import axios from "axios";
 
 export default function Signup(){
     
@@ -120,7 +119,6 @@ export default function Signup(){
                         </div>
                         <div className="flex items-baseline justify-between">
                             <button 
-                                // onClick={postUser(currentUser)}
                                 disabled={loading}
                                 type="submit" 
                                 className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
