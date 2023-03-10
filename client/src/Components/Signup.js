@@ -18,22 +18,36 @@ export default function Signup(){
         userName:""
     })
     
+    //   direct back to main screen if there is current user?
+    //   useEffect(() => {
+    //     if (currentUser.displayName!==null) {
+    //       navigate("/");
+    //     }
+    //   }, [currentUser, navigate]);
+
+
       useEffect(() => {
-        if (currentUser) {
-          navigate("/login");
-        }
-      }, [currentUser, navigate]);
-      useEffect(() => {
-        postUser(currentUser)
+        updateUserName(currentUser)
       }, [currentUser]);
 
-      function handleChange(event) {
+    function handleChange(event) {
         setSignUpData(prevFormData => {
             return {
                 ...prevFormData,
                 [event.target.name]: event.target.value
             }
         })
+    }
+
+    async function updateUserName(currentUser){
+        try {
+            await updateUser(currentUser, {displayName: signUpData.userName})
+            console.log(currentUser);
+            postUser(currentUser)
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async function handleSubmit(event) {
@@ -46,20 +60,12 @@ export default function Signup(){
         }
         try {
             setLoading(true);
-            console.log(signUpData.email);
             await register(signUpData.email, signUpData.password);
-            let profile = {displayName: signUpData.userName}
-            await updateUser(currentUser, profile)
-            navigate("/");
           } catch (event) {
             alert("Failed to register");
           }
       
           setLoading(false);
-    }
-
-    const postSignUp = async () =>{
-        let response = await axios.post()
     }
 
     return(

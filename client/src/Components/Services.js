@@ -21,7 +21,8 @@ const createHeader = async () => {
 export const postUser = async (userId) => {
   const headers = await createHeader();
   try {
-    const res = await axios.post(`${baseURL}/signup/${userId}`,{}, {headers});
+    const res = await axios.post(`${baseURL}/signup`,{userId}, {headers});
+    console.log(res);
     return res.data;
   } catch (error) {
     console.error(error);

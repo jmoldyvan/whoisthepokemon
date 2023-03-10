@@ -3,8 +3,9 @@ import auth from "../config/firebase-config.js";
 
 export async function createUser(req, res) {
   try {
-    console.log(res);
-    const userRecord = await auth.getUser(req.params.userId);
+    console.log(req.user);
+    const userRecord = await auth.getUser(req.user.uid);
+    console.log(userRecord);
     const currUserName = userRecord.displayName
     await Users.create({
       score: 0,

@@ -33,6 +33,7 @@ export function AuthProvider({ children }) {
   }
 
   function updateUser(user, userName) {
+    console.log(user);
     return updateProfile(user, userName);
   }
 
