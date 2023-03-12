@@ -33,7 +33,23 @@ export async function getUser(req, res) {
   try {
     const userRecord = await auth.getUser(req.user.uid);
     const userUid = userRecord.uid
-    const userInfo = await Users.find({ uid: userUid });
+    const userInfo = await Users.find({ score: userUid });
+    console.log(userInfo);
+    return res.json(userInfo);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function updateScore(req, res) {
+  try {
+    console.log(req.body.score);
+    const userRecord = await auth.getUser(req.user.uid);
+    const userUid = userRecord.uid
+    const userInfo = await Users.findOneAndUpdate(
+      { uid: userUid },
+      { score: req.body.score}
+      );
     console.log(userInfo);
     return res.json(userInfo);
   } catch (err) {

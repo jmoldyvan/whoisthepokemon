@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Logout from "./Logout";
 import { Link, useNavigate } from "react-router-dom";
+import { updateScore } from "./Services";
 
 export default function Main(){
 
@@ -35,6 +36,7 @@ function takeGuess(guess){
     let numberGuess = Number(guess.guess)
     setWinCondition(randomNumber === numberGuess ? true : false)
     setWinTracker(prevValue => { return randomNumber === numberGuess ? prevValue + 1 : prevValue=0})
+    updateScore(currentUser, winTracker)
   }
 
 const styles = {
@@ -55,7 +57,7 @@ function handleSubmit(event) {
 }
 
 console.log(randomNumber);
-
+console.log(currentUser);
     return(
         <div>
             {currentUser ? <h3>Hello {currentUser.displayName}</h3> : <h3>Hello</h3>}

@@ -12,26 +12,24 @@ export default function Login(){
         password:"",
     })
 
-    // useEffect(() => {
-    //     if (currentUser) {
-    //       navigate("/");
-    //     }
-    //   }, [currentUser, navigate]);
-
-      useEffect(() => {
-        getUserFromDB(currentUser)
-      }, [currentUser]);
-
-    async function getUserFromDB(currentUser){
-        try {
-            console.log(currentUser);
-            getUser(currentUser)
-            // navigate("/");
-        } catch (error) {
-            console.log(error);
+    useEffect(() => {
+        if (currentUser) {
+          navigate("/");
         }
-    }
+      }, [currentUser, navigate]);
 
+    // async function getUserFromDB(currentUser){
+    //     try {
+    //         console.log(currentUser);
+    //         getUser(currentUser)
+    //         // navigate("/");
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+    //   useEffect(() => {
+    //     getUserFromDB(currentUser)
+    //   }, [currentUser]);
     function handleChange(event) {
         setLogInData(prevFormData => {
             return {
@@ -47,9 +45,8 @@ export default function Login(){
           setError("");
           setLoading(true);
           await login(logInData.email, logInData.password);
-          console.log(currentUser);
         //   await getUser(currentUser)
-        //   navigate("/");
+          navigate("/");
         } catch (e) {
           setError("Failed to login");
         }

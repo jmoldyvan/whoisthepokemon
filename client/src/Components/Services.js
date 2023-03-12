@@ -38,4 +38,15 @@ export const getUser = async (userId) => {
     console.error(error);
   }
 };
+export const updateScore = async (userId, score) => {
+
+  const headers = await createHeader();
+  try {
+    const res = await axios.put(`${baseURL}/updateScore`,{userId, score}, {headers});
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
