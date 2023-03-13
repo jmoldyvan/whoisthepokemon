@@ -5,6 +5,10 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  highScore: {
+    type: Number,
+    required: true,
+  },
   user: {
     type: String,
     ref: "User"

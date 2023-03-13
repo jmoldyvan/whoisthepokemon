@@ -1,0 +1,11 @@
+[X] score incrimnets on db with frontend in synch
+
+[] user return should keep score from last session
+
+[] highscore should only be overwriten if larger than score
+
+[] users cant have same email or username as another user
+
+[] forgot password, enter email to make new pasword
+
+[] page to show all users high score
