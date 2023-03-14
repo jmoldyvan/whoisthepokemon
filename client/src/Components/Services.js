@@ -26,17 +26,7 @@ export const postUser = async (userId) => {
     console.error(error);
   }
 };
-// export const getUserScore = async (userId) => {
-//   const headers = await createHeader();
-//   console.log(headers);
-//   try {
-//     const res = await axios.get(`${baseURL}/getUserScore`,{userId}, {headers});
-//     // console.log(res);
-//     return res.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+
 export const updateScore = async (userId, score) => {
 
   const headers = await createHeader();

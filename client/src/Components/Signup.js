@@ -24,7 +24,6 @@ export default function Signup(){
     //     }
     //   }, [currentUser, navigate]);
 
-
       useEffect(() => {
         updateUserName(currentUser)
       }, [currentUser]);

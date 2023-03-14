@@ -34,7 +34,6 @@ export async function getUserScore(req, res) {
     const userRecord = await auth.getUser(req.user.uid);
     const userUid = userRecord.uid
     const userInfo = await Users.find({ score: userUid });
-    // console.log(userInfo);
     return res.json(userInfo.score);
   } catch (err) {
     console.log(err);
