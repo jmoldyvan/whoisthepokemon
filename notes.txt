@@ -6,7 +6,7 @@
 
 [X] users cant have same email as another User
 
-[] shwo error no udplicate email
+[X] shwo error no udplicate email
 
 [] cant have same username
 

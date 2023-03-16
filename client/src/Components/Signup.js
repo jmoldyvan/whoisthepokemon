@@ -60,7 +60,14 @@ export default function Signup(){
             setLoading(true);
             await register(signUpData.email, signUpData.password);
           } catch (event) {
-            alert("Failed to register");
+            console.log(event.code);
+            if(event.code == 'auth/email-already-in-use'){
+                alert('this email is already in use')
+            }
+            else{
+                       alert("Failed to register");     
+            }
+
           }
       
           setLoading(false);
