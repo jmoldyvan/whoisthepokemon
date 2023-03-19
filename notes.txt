@@ -1,10 +1,18 @@
 [X] score incrimnets on db with frontend in synch
 
-[] user return should keep score from last session
+[X] user return should keep score from last session
 
-[] highscore should only be overwriten if larger than score
+[X] highscore should only be overwriten if larger than score
 
-[] users cant have same email or username as another user
+[X] users cant have same email as another User
+
+[] shwo error no udplicate email
+
+[] cant have same username
+
+[] fix high score larg
+
+[] fix high score when new user signs in
 
 [] forgot password, enter email to make new pasword
 
