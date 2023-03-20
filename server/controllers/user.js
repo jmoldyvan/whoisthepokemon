@@ -48,7 +48,6 @@ export async function updateScore(req, res) {
       { uid: userUid },
       { score: req.body.score}
       );
-          // console.log(userInfo);
     return res.json(userInfo);
   } catch (err) {
     console.log(err);
@@ -71,6 +70,20 @@ export async function updateHighScore(req, res) {
     console.log(err);
   }
 }
+export async function getAllHighScore(req, res) {
+  try {
+    const userInfo = await Users.find({  }).sort({highScore:-1});
+    console.log(userInfo);
+    return res.json(userInfo);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+
+
+
+
 // export async function checkUserName(req, res) {
 //   try {
 //     console.log(req);

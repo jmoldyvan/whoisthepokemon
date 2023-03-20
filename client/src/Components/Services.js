@@ -70,15 +70,15 @@ export const getUserHighScore = async () => {
 //   }
 // };
 
-// export const getAllHighScore = async (userId, score) => {
+export const getAllHighScore = async () => {
 
-//   const headers = await createHeader();
+  const headers = await createHeader();
   
-//   try {
-//     const res = await axios.get(`${baseURL}/updateHighScore`,{userId, score}, {headers});
-//     return res.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+  try {
+    const res = await axios.get(`${baseURL}/getAllHighScore`,{}, {headers});
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 

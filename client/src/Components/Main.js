@@ -96,6 +96,7 @@ console.log(randomNumber);
                 <button onClick={randomNumberBetweenOneAndTen} >Next Number</button>
                 <h1>You Have {comboTracker} combo</h1>
                 <h1>Your HighScore {highscoreTracker}</h1>
+                {/* {leaderboard ? <Leaderboard /> : <h1>Leaderboard</h1>} */}
                 <Logout />
             </form>
         </div>

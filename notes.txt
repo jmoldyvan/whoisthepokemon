@@ -14,8 +14,10 @@
 
 [X] fix high score when new user signs in
 
-[] forgot password, enter email to make new pasword (follow auth firebase password reset)
+[X] forgot password, enter email to make new pasword (follow auth firebase password reset)
 
 [] page to show all users high score
+
+[] delete user option
 
 [] make it whose that pokemonS
