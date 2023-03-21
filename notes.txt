@@ -16,7 +16,7 @@
 
 [X] forgot password, enter email to make new pasword (follow auth firebase password reset)
 
-[] page to show all users high score
+[] page to show all users high score, only displayname
 
 [] delete user option
 
