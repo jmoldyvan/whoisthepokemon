@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import Logout from "./Logout";
 import { Link, useNavigate } from "react-router-dom";
 import { updateScore, getUserScore, updateHighScore, getUserHighScore } from "./Services";
+import Leaderboard from "./Leaderboard";
 
 export default function Main(){
 
@@ -11,6 +12,7 @@ export default function Main(){
     const [randomNumber, setRandomNumber] = useState(0)
     const [winCondition, setWinCondition] = useState(false)
     const [scoreCondition, setScoreCondition] = useState(false)
+    const [leaderboardBool, setLeaderboardBool] = useState(false)
     const [comboTracker, setcomboTracker] = useState(0)
     const [highscoreTracker, setHighScoreTracker] = useState(0)
     let [userAnswer, setUserAnswer] = useState('')
@@ -81,6 +83,10 @@ function handleSubmit(event) {
     event.preventDefault()
 }
 
+function toggleLeaderboard() {
+    setLeaderboardBool(prevValue => !prevValue)
+}
+
 console.log(randomNumber);
     return(
         <div>
@@ -96,7 +102,7 @@ console.log(randomNumber);
                 <button onClick={randomNumberBetweenOneAndTen} >Next Number</button>
                 <h1>You Have {comboTracker} combo</h1>
                 <h1>Your HighScore {highscoreTracker}</h1>
-                {/* {leaderboard ? <Leaderboard /> : <h1>Leaderboard</h1>} */}
+                {leaderboardBool ? <Leaderboard handleLeaderboard = {toggleLeaderboard} /> : <button onClick={() => toggleLeaderboard()}>Leaderboard</button>}
                 <Logout />
             </form>
         </div>

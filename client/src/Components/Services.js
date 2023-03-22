@@ -75,7 +75,7 @@ export const getAllHighScore = async () => {
   const headers = await createHeader();
   
   try {
-    const res = await axios.get(`${baseURL}/getAllHighScore`,{}, {headers});
+    const res = await axios.get(`${baseURL}/getAllHighScore`, {headers});
     return res.data;
   } catch (error) {
     console.error(error);

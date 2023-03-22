@@ -72,8 +72,11 @@ export async function updateHighScore(req, res) {
 }
 export async function getAllHighScore(req, res) {
   try {
-    const userInfo = await Users.find({  }).sort({highScore:-1});
-    console.log(userInfo);
+    const userInfo = await Users.find({  }).sort({highScore:-1}).limit(10);
+    let onlyHSandUserName = userInfo.map((x) => {
+      return {highScore:x.highScore, user:x.user}
+    })
+    console.log(onlyHSandUserName);
     return res.json(userInfo);
   } catch (err) {
     console.log(err);
