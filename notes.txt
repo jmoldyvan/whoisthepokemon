@@ -16,8 +16,18 @@
 
 [X] forgot password, enter email to make new pasword (follow auth firebase password reset)
 
-[] page to show all users high score, only displayname
+[X] page to show all users high score, only displayname
 
 [] delete user option
 
-[] make it whose that pokemonS
+[] get req pokemon info on load and next pokemon
+
+[] make pokemon sillouette on load
+
+[] give up button (lose combo) (reveal pokemon)
+
+[] take guess reveals answer
+
+[] autocomplete for guessing
+
+[] get req for different generations of pokemon

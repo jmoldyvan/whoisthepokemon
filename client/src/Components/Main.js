@@ -3,13 +3,14 @@ import { useAuth } from "../contexts/AuthContext";
 import Logout from "./Logout";
 import { Link, useNavigate } from "react-router-dom";
 import { updateScore, getUserScore, updateHighScore, getUserHighScore } from "./Services";
+import { getPokemonInfo } from "./APIService";
 import Leaderboard from "./Leaderboard";
 
 export default function Main(){
 
     const { currentUser} = useAuth();
     const navigate = useNavigate();
-    const [randomNumber, setRandomNumber] = useState(0)
+    const [randomPokemonInfo, setRandomPokemonInfo] = useState()
     const [winCondition, setWinCondition] = useState(false)
     const [scoreCondition, setScoreCondition] = useState(false)
     const [leaderboardBool, setLeaderboardBool] = useState(false)
@@ -22,14 +23,14 @@ export default function Main(){
 // on initital render get the users score and put that value into the combo tracker state
     // getUserScore(currentUser)
 
-function randomNumberBetweenOneAndTen(){
+async function generateRandomPokemon(){
     setWinCondition(false)
-    let number = Math.floor(Math.random() * 10)
-    setRandomNumber(number)
+    let pokemonInfo = await getPokemonInfo()
+    setRandomPokemonInfo(pokemonInfo)
   }
 
   useEffect(() => {
-    randomNumberBetweenOneAndTen()
+    generateRandomPokemon()
     if(!currentUser){
     navigate("/login");
 }
@@ -63,8 +64,8 @@ async function updateHighScores(){
 
 function takeGuess(guess){
     let numberGuess = Number(guess.guess)
-    setWinCondition(randomNumber === numberGuess ? true : false)
-    setcomboTracker(prevValue => { return randomNumber === numberGuess ? prevValue + 1 : prevValue=0})
+    setWinCondition(randomPokemonInfo['name'] === numberGuess ? true : false)
+    setcomboTracker(prevValue => { return randomPokemonInfo['name'] === numberGuess ? prevValue + 1 : prevValue=0})
   }
 
 const styles = {
@@ -87,11 +88,11 @@ function toggleLeaderboard() {
     setLeaderboardBool(prevValue => !prevValue)
 }
 
-console.log(randomNumber);
+console.log(randomPokemonInfo['name']);
     return(
         <div>
             {currentUser ? <h3>Hello {currentUser.displayName}</h3> : <h3>Hello</h3>}
-            <h3>What Number Am I Thinking Of? ONLY 1-10</h3>
+            <h3>Who's That Pokemon?</h3>
             {winCondition && <h3>correct</h3>}
             <form onSubmit={handleSubmit}>
                 <input name="guess" onChange={handleChange}></input>
@@ -99,7 +100,7 @@ console.log(randomNumber);
                     style={styles}  
                     className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">TAKE GUESS
                 </button>
-                <button onClick={randomNumberBetweenOneAndTen} >Next Number</button>
+                <button onClick={generateRandomPokemon} >Next Number</button>
                 <h1>You Have {comboTracker} combo</h1>
                 <h1>Your HighScore {highscoreTracker}</h1>
                 {leaderboardBool ? <Leaderboard handleLeaderboard = {toggleLeaderboard} /> : <button onClick={() => toggleLeaderboard()}>Leaderboard</button>}
