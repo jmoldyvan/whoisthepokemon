@@ -34,18 +34,16 @@ async function generateRandomPokemon(){
   }
 
   randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
-  randomPokemonInfo?console.log(randomPokemonInfo):console.log(null)
+//   randomPokemonInfo?console.log(randomPokemonInfo):console.log(null)
 
-  useEffect(() => {
+    useEffect(() => {
         if(!currentUser){
         navigate("/login");
         }
     }, []);
-
-  useEffect(() => {
+    useEffect(() => {
         generateRandomPokemon()
     }, []);
-
     useEffect(() => {
         updateAllScores()
     }, [comboTracker]);
@@ -81,6 +79,9 @@ function takeGuess(guess){
 const styles = {
     pointerEvents : winCondition === true ? "none" : "all",
 }
+const pokemonShadow = {
+    filter : winCondition === false ? 'brightness(0)' : null
+}
 
 function handleChange(event) {
     setFormData(prevFormData => {
@@ -98,14 +99,19 @@ function toggleLeaderboard() {
     setLeaderboardBool(prevValue => !prevValue)
 }
 
-
+function giveUpRevealAnswer(){
+    setWinCondition(true)
+    setcomboTracker(0)
+}
 
     return(
         <div>
             {currentUser ? <h3>Hello {currentUser.displayName}</h3> : <h3>Hello</h3>}
             <h3>Who's That Pokemon?</h3>
-            {randomPokemonInfo ? <img src={randomPokemonInfo.sprites.other['official-artwork']['front_default']}></img> : <img></img>}
-            {winCondition && <h3>correct</h3>}
+            {randomPokemonInfo ? 
+            <img style = {pokemonShadow} src={randomPokemonInfo.sprites.other['official-artwork']['front_default']}></img> : 
+            <img></img>}
+            {winCondition && <h3>It's {randomPokemonInfo.name}</h3>}
             <form onSubmit={handleSubmit}>
                 <input name="guess" onChange={handleChange}></input>
                 <button onClick={()=> takeGuess(formData)} 
@@ -113,6 +119,11 @@ function toggleLeaderboard() {
                     className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">TAKE GUESS
                 </button>
                 <button onClick={generateRandomPokemon} >Next Number</button>
+                <button
+                    style={styles}  
+                    className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" 
+                    onClick={giveUpRevealAnswer} 
+                >Give Up</button>
                 <h1>You Have {comboTracker} combo</h1>
                 <h1>Your HighScore {highscoreTracker}</h1>
                 {leaderboardBool ? <Leaderboard handleLeaderboard = {toggleLeaderboard} /> : <button onClick={() => toggleLeaderboard()}>Leaderboard</button>}

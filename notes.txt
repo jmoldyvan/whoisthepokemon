@@ -20,14 +20,20 @@
 
 [] delete user option
 
-[] get req pokemon info on load and next pokemon
+[] get req pokemon info on load and next pokemon (WHAT?)
 
-[] make pokemon sillouette on load
+[X] make pokemon sillouette on load
 
-[] give up button (lose combo) (reveal pokemon)
+[X] give up button (lose combo) (reveal pokemon)
 
-[] take guess reveals answer
+[] leaderboard is broken
+
+[X] take guess reveals answer
 
 [] autocomplete for guessing
+
+[] if it doesnt have a im, get next pokemon
+
+[] fix draggin from mouse
 
 [] get req for different generations of pokemon

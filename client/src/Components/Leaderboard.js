@@ -15,16 +15,17 @@ export default function Leaderboard(props){
 
     useEffect(() => {
         fillInLeaderboard()
-      }, []);
+    }, []);
 
     async function fillInLeaderboard(){
         try {
+            console.log('leader');
             let allHighScores = await getAllHighScore()
+            console.log('leader');
             sethighScoreList(allHighScores)            
         } catch (error) {
             console.log(error);
         }
-
       }
 
 
