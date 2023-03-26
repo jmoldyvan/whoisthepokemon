@@ -3,8 +3,9 @@ import { useAuth } from "../contexts/AuthContext";
 import Logout from "./Logout";
 import { Link, useNavigate } from "react-router-dom";
 import { updateScore, getUserScore, updateHighScore, getUserHighScore } from "./Services";
-import { getPokemonInfo } from "./APIService";
+import { getPokemonInfo, allPokemonNames } from "./APIService";
 import Leaderboard from "./Leaderboard";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 export default function Main(){
 
@@ -16,12 +17,9 @@ export default function Main(){
     const [leaderboardBool, setLeaderboardBool] = useState(false)
     const [comboTracker, setcomboTracker] = useState(0)
     const [highscoreTracker, setHighScoreTracker] = useState(0)
-    let [userAnswer, setUserAnswer] = useState('')
-    const [formData, setFormData] = React.useState()
-
-
-// on initital render get the users score and put that value into the combo tracker state
-    // getUserScore(currentUser)
+    const [formData, setFormData] = useState({guess: ""})
+    const [pokemonNames, setPokemonNames] = useState()
+    const [searchString, setSearchString] = useState("");
 
 async function generateRandomPokemon(){
     try {
@@ -36,6 +34,19 @@ async function generateRandomPokemon(){
   randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
 //   randomPokemonInfo?console.log(randomPokemonInfo):console.log(null)
 
+async function allNamesOfPokemon() {
+    try {
+        let names = await allPokemonNames()
+        let allNames = names.map((x, i) => {
+            return {name:x.name, id:(i+1)}
+        })        
+        await setPokemonNames(allNames)
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
     useEffect(() => {
         if(!currentUser){
         navigate("/login");
@@ -43,6 +54,7 @@ async function generateRandomPokemon(){
     }, []);
     useEffect(() => {
         generateRandomPokemon()
+        allNamesOfPokemon()
     }, []);
     useEffect(() => {
         updateAllScores()
@@ -71,7 +83,7 @@ async function updateHighScores(){
 }
 
 function takeGuess(guess){
-    let pokeGuess = guess.guess
+    let pokeGuess = guess
     setWinCondition(randomPokemonInfo.name === pokeGuess ? true : false)
     setcomboTracker(prevValue => { return randomPokemonInfo.name === pokeGuess ? prevValue + 1 : prevValue=0})
   }
@@ -88,7 +100,7 @@ function handleChange(event) {
     setFormData(prevFormData => {
         return {
             ...prevFormData,
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value.toLowerCase()
         }
     })
 }
@@ -105,6 +117,13 @@ function giveUpRevealAnswer(){
     setcomboTracker(0)
 }
 
+const handleOnSearch = (string, results) => {
+    setSearchString(string);
+};
+const handleOnSelect = (item) => {
+    setSearchString(item.name);
+};
+
     return(
         <div>
             {currentUser ? <h3>Hello {currentUser.displayName}</h3> : <h3>Hello</h3>}
@@ -114,12 +133,26 @@ function giveUpRevealAnswer(){
             <img></img>}
             {winCondition && <h3>It's {randomPokemonInfo.name}</h3>}
             <form onSubmit={handleSubmit}>
-                <input name="guess" onChange={handleChange}></input>
-                <button onClick={()=> takeGuess(formData)} 
+                <div style={{ width: 200, margin: 20 }}>
+                    <ReactSearchAutocomplete
+                        items={pokemonNames}
+                        onSearch={handleOnSearch}
+                        onSelect={handleOnSelect}
+                        inputSearchString={searchString}
+                        showIcon={false}
+                        maxResults={5}
+                        name="guess"
+                        autoFocus
+                        onChange={handleChange}
+                        value={formData.guess}
+                    />
+                </div>
+                <button onClick={()=> takeGuess(searchString)}   
                     style={styles}  
                     className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">TAKE GUESS
                 </button>
-                <button onClick={generateRandomPokemon} >Next Number</button>
+            </form>                
+                <button className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" onClick={generateRandomPokemon} >Next Pokemon</button>
                 <button
                     style={styles}  
                     className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" 
@@ -129,7 +162,6 @@ function giveUpRevealAnswer(){
                 <h1>Your HighScore {highscoreTracker}</h1>
                 {leaderboardBool ? <Leaderboard handleLeaderboard = {toggleLeaderboard} /> : <button onClick={() => toggleLeaderboard()}>Leaderboard</button>}
                 <Logout />
-            </form>
         </div>
     )
 }

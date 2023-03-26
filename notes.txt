@@ -18,22 +18,26 @@
 
 [X] page to show all users high score, only displayname
 
-[] delete user option
-
-[] get req pokemon info on load and next pokemon (WHAT?)
-
 [X] make pokemon sillouette on load
 
 [X] give up button (lose combo) (reveal pokemon)
 
-[X] leaderboard is broken
-
 [X] take guess reveals answer
 
-[] autocomplete for guessing
+[X] autocomplete for guessing
+
+[]fix autocomplete rerendering
+
+[]make autocomplete a different componenet
 
 [X] if it doesnt have a im, get next pokemon
 
 [X] fix draggin from mouse
 
 [] get req for different generations of pokemon
+
+[] next pokemon should be disabled until take guess or give up is clicked
+
+[] leaderboard is broken****
+
+[] delete user option
