@@ -5,14 +5,10 @@ import { TextField } from '@mui/material';
 export default function AutocompleteSearch(props){
 
     const [autoCompleteStringValue, setAutoCompleteStringValue] = useState(String[0]);
+    const [inputValue, setInputValue] = useState('');
 
-function handleChange(event) {
-    setAutoCompleteStringValue(prevAutoCompleteStringValue => {
-        return {
-            ...prevAutoCompleteStringValue,
-            [event.target.name]: event.target.value.toLowerCase()
-        }
-    })
+function handleChange(event, newInputValue) {
+    setAutoCompleteStringValue(newInputValue)
 }
 function handleSubmit(event) {
     event.preventDefault()
@@ -31,14 +27,18 @@ const styles = {
                         sx={{ width: 300 }}
                         onChange={handleChange}
                         id="pokeNameAutocomplete"
-                        value={autoCompleteStringValue}
+                        value={autoCompleteStringValue || null}
                         autoComplete
                         includeInputInList
-                        renderInput={(params) => <TextField {...params} label="Names" />}
+                        onInputChange={(event, newInputValue) => {
+                            setInputValue(newInputValue);
+                          }}
+                        renderInput={(params) => <TextField {...params} />}
+                        getOptionLabel={(option) => option.name || ""}
                     />
                 </div>
                 <button 
-                    onClick={() => props.takeGuess(autoCompleteStringValue)}   
+                    onClick={() => props.takeGuess(autoCompleteStringValue.name)}   
                     style={styles}  
                     className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
                     >TAKE GUESS

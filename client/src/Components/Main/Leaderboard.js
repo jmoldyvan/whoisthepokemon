@@ -52,7 +52,7 @@ export default function Leaderboard(props){
                             </div>
                         )
                     })
-                : null}
+                : {fillInLeaderboard}}
             </div>
         </div>
     )

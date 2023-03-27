@@ -1,6 +1,19 @@
 import axios from "axios";
 
-export const getPokemonInfo = async () => {
+export const getPokemonInfo = async (props) => {
+// PROPS ISNT WORKING
+  console.log(props);
+// SLOPPY
+function makeArrayOfRangesFromSelectedGens(props){
+  const nonFiltered = Object.entries(props);
+  const filtered = nonFiltered.filter(([key, value]) => value === true);
+  const selectedGens = Object.fromEntries(filtered);
+  const selectedGensArray = Object.keys(selectedGens);
+  console.log(selectedGensArray);
+  // selectedGensArray.forEach(element => {
+  //   if(element==='gen1')
+  // });
+}
 
 function randomNumber(){
   let randNum = Math.floor(Math.random() * 1000)
@@ -19,7 +32,6 @@ function randomNumber(){
       }
     }
     else{
-    console.log(res.data);
     return res.data;      
     }
   } catch (error) {
