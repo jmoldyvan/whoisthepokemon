@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login(){
@@ -33,11 +33,9 @@ export default function Login(){
           setLoading(true);
           await passwordReset(logInData.email);
           setSentEmailCheck(true)
-        //   navigate("/");
         } catch (e) {
           setError("Email was not sent");
         }
-    
         setLoading(false);
       }
 
@@ -68,9 +66,10 @@ export default function Login(){
                         </div>
                         <p className="mt-6 text-sm font-light text-gray-500 dark:text-gray-400">
                             Return to  
-                            <Link to={'/login'} 
+                            <Link 
+                                to={'/login'} 
                                 class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600"> 
-                            Login
+                                Login
                             </Link>
                         </p>
                     </div>

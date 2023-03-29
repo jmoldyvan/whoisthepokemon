@@ -1,17 +1,15 @@
 import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import Login from './Components/Login';
-import Signup from './Components/Signup';
-import Main from './Components/Main';
-import ForgotPassword from './Components/ForgotPassword';
+import Login from './Components/UserCred/Login';
+import Signup from './Components/UserCred/Signup';
+import Main from './Components/Main/Main';
+import ForgotPassword from './Components/UserCred/ForgotPassword';
 import { AuthProvider } from './contexts/AuthContext';
 import ErrorMessage from "./Components/ErrorMessage";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  
 
   return (
     <AuthProvider>

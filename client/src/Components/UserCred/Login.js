@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react"
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { getUser } from "./Services";
 
 export default function Login(){
     const navigate = useNavigate(); 
@@ -18,18 +17,6 @@ export default function Login(){
         }
       }, [currentUser, navigate]);
 
-    // async function getUserFromDB(currentUser){
-    //     try {
-    //         console.log(currentUser);
-    //         getUser(currentUser)
-    //         // navigate("/");
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-    //   useEffect(() => {
-    //     getUserFromDB(currentUser)
-    //   }, [currentUser]);
     function handleChange(event) {
         setLogInData(prevFormData => {
             return {
@@ -50,7 +37,6 @@ export default function Login(){
         } catch (e) {
           setError("Failed to login");
         }
-    
         setLoading(false);
       }
 
@@ -83,8 +69,11 @@ export default function Login(){
                             </input>
                         </div>
                         <span className="text-sm text-blue-600 hover:underline">
-                        <Link to={'/forgotpassword'} class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
-                        Forgot Password?</Link>
+                        <Link 
+                            to={'/forgotpassword'} 
+                            class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
+                            Forgot Password?
+                        </Link>
                         </span>
                         <div className="flex items-baseline justify-between">
                             <button 
@@ -94,9 +83,13 @@ export default function Login(){
                             </button>
                         </div>
                         <p className="mt-6 text-sm font-light text-gray-500 dark:text-gray-400">
-                      Dont have an account yet? <Link to={'/signup'} class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
-                        Sign up</Link>
-                  </p>
+                            Dont have an account yet? 
+                            <Link 
+                                to={'/signup'} 
+                                class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
+                                Sign up
+                            </Link>
+                        </p>
                     </div>
                 </form>
             </div>

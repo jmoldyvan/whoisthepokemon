@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../../src/contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllHighScore } from "./Services";
+import { getAllHighScore } from "../UserCred/Services";
 import { XCircleIcon } from "@heroicons/react/solid";
 
 export default function Leaderboard(props){

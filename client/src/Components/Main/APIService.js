@@ -2,13 +2,17 @@ import axios from "axios";
 
 export const getPokemonInfo = async () => {
 
-let randomNumber = Math.floor(Math.random() * 1000)
+function randomNumber(){
+  let randNum = Math.floor(Math.random() * 1000)
+  return randNum
+} 
   
   try {
-    const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomNumber}/`);
-    if(res.data.sprites.other['official-artwork']['front_default']){
+    const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomNumber()}/`);
+    // DID I MESS UP BY NOT INCLUDING A BANG BELOW??????????
+    if(!res.data.sprites.other['official-artwork']['front_default']){
       try {
-        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomNumber}/`);
+        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomNumber()}/`);
         return res.data;
       } catch (error) {
         console.error(error);

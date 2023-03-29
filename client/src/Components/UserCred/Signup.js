@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postUser, checkUserName } from "./Services";
@@ -16,13 +16,6 @@ export default function Signup(){
         confirmPassword:"",
         userName:""
     })
-    
-    //   direct back to main screen if there is current user?
-    //   useEffect(() => {
-    //     if (currentUser.displayName!==null) {
-    //       navigate("/");
-    //     }
-    //   }, [currentUser, navigate]);
 
       useEffect(() => {
         updateUserName(currentUser)
@@ -57,7 +50,6 @@ export default function Signup(){
         }
         try {
             setLoading(true);
-            // await checkUserName(signUpData.userName)
             await register(signUpData.email, signUpData.password);
           } catch (event) {
             if(event.code == 'auth/email-already-in-use'){
@@ -66,9 +58,7 @@ export default function Signup(){
             else{
                        alert("Failed to register");     
             }
-
           }
-      
           setLoading(false);
     }
 
@@ -132,9 +122,10 @@ export default function Signup(){
                         </div>
                     <p className="mt-6 text-sm font-light text-gray-500 dark:text-gray-400">
                             Already have an account? 
-                        <Link to={'/login'} 
+                        <Link 
+                            to={'/login'} 
                             class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
-                        Login
+                            Login
                         </Link>
                     </p>
                     </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import auth from "../config/firebase";
+import auth from "../../config/firebase";
 
 const baseURL = "http://localhost:5000";
 
@@ -60,7 +60,6 @@ export const getUserHighScore = async () => {
   }
 };
 // export const checkUserName = async (userName) => {
-
 //   try {
 //     const res = await axios.get(`${baseURL}/checkUserName`, {userName});
 //     console.log(res.data);

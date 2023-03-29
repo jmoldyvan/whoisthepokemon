@@ -1,6 +1,6 @@
-import React, {useState,useEffect} from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Logout() {
     const navigate = useNavigate();

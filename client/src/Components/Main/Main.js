@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { useAuth } from "../contexts/AuthContext";
-import Logout from "./Logout";
+import { useAuth } from "../../contexts/AuthContext";
+import Logout from "../UserCred/Logout";
 import { useNavigate } from "react-router-dom";
-import { updateScore, updateHighScore, getUserHighScore } from "./Services";
+import { updateScore, updateHighScore, getUserHighScore } from "../UserCred/Services";
 import { getPokemonInfo, allPokemonNames } from "./APIService";
 import Leaderboard from "./Leaderboard";
 import AutocompleteSearch from "./AutocompleteSearch"
@@ -21,10 +21,11 @@ export default function Main(){
     const [highscoreTracker, setHighScoreTracker] = useState(0)
     const [pokemonNames, setPokemonNames] = useState()
 
-async function generateRandomPokemon(){
+async function generateRandomPokemon(selectedGens){
     try {
     setWinCondition(false)
-    let pokemonInfo = await getPokemonInfo()
+    // pass in the highlighted generations to only produce those generation pokemon
+    let pokemonInfo = await getPokemonInfo(selectedGens)
     await setRandomPokemonInfo(pokemonInfo)
     return true
     } catch (error) {
@@ -36,6 +37,7 @@ async function generateRandomPokemon(){
 
 async function allNamesOfPokemon() {
     try {
+        // pass in the highlighted generations to only produce those generation pokemon namnes
         let names = await allPokemonNames()
         let allNames = names.map((x, i) => {
             return {name:x.name, id:(i+1)}
@@ -96,6 +98,10 @@ const pokemonShadow = {
     filter : winCondition === false ? 'brightness(0)' : null,
     pointerEvents : "none"
 }
+const highlight = {
+    color : 'blue',
+    backgroundColor : 'green'
+}
 
 function toggleLeaderboard() {
     setLeaderboardBool(prevValue => !prevValue)
@@ -112,11 +118,10 @@ function giveUpRevealAnswer(){
             <h3>Who's That Pokemon?</h3>
             {randomPokemonInfo ? <img style={pokemonShadow} src={randomPokemonInfo.sprites.other['official-artwork']['front_default']}></img> : <img></img>}
             {winCondition && <h3>It's {randomPokemonInfo.name}</h3>}
-            <AutocompleteSearch
+            {/* <AutocompleteSearch
                 pokemonNames={pokemonNames}
                 takeGuess={takeGuess}
-
-            />
+            /> */}
             <button 
                 style={oppositeStyles} 
                 className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900" 
@@ -129,6 +134,15 @@ function giveUpRevealAnswer(){
                 onClick={giveUpRevealAnswer} 
                 >Give Up
             </button>
+            <button style={highlight}>Gen 1</button>
+            <button>Gen 2</button>
+            <button>Gen 3</button>
+            <button>Gen 4</button>
+            <button>Gen 5</button>
+            <button>Gen 6</button>
+            <button>Gen 7</button>
+            <button>Gen 8</button>
+            <button>Gen 9</button>
             <h1>You Have {comboTracker} combo</h1>
             <h1>Your HighScore {highscoreTracker}</h1>
             {leaderboardBool ? <Leaderboard handleLeaderboard={toggleLeaderboard} /> : <button onClick={() => toggleLeaderboard()}>Leaderboard</button>}
