@@ -26,17 +26,17 @@
 
 [X] autocomplete for guessing
 
-[]fix autocomplete rerendering
-
-[]make autocomplete a different componenet
-
 [X] if it doesnt have a im, get next pokemon
 
 [X] fix draggin from mouse
 
+[]fix autocomplete rerendering
+
+[]make autocomplete a different componenet
+
 [] get req for different generations of pokemon
 
-[] next pokemon should be disabled until take guess or give up is clicked
+[X] next pokemon should be disabled until take guess or give up is clicked
 
 [] leaderboard is broken****
 

@@ -17,7 +17,7 @@ export default function Main(){
     const [leaderboardBool, setLeaderboardBool] = useState(false)
     const [comboTracker, setcomboTracker] = useState(0)
     const [highscoreTracker, setHighScoreTracker] = useState(0)
-    const [formData, setFormData] = useState({guess: ""})
+    const [formData, setFormData] = useState({firstGuess: ""})
     const [pokemonNames, setPokemonNames] = useState()
     const [searchString, setSearchString] = useState("");
 
@@ -54,11 +54,6 @@ async function allNamesOfPokemon() {
             }
         generateRandomPokemon()
         allNamesOfPokemon()
-    }, [ ]);
-    useEffect(() => {
-        if(!currentUser){
-            navigate("/login");
-            }
     }, []);
     useEffect(() => {
         updateAllScores()
@@ -113,7 +108,6 @@ function handleChange(event) {
 }
 function handleSubmit(event) {
     event.preventDefault()
-    setSearchString("");
 }
 
 function toggleLeaderboard() {
@@ -126,12 +120,13 @@ function giveUpRevealAnswer(){
 }
 
 const handleOnSearch = (string, results) => {
+    console.log(string, results);
     setSearchString(string);
 };
 const handleOnSelect = (item) => {
     setSearchString(item.name);
 };
-
+console.log(searchString);
     return(
         <div>
             {currentUser ? <h3>Hello {currentUser.displayName}</h3> : <h3>Hello</h3>}
@@ -149,10 +144,10 @@ const handleOnSelect = (item) => {
                         inputSearchString={searchString}
                         showIcon={false}
                         maxResults={5}
-                        name="guess"
                         autoFocus
                         onChange={handleChange}
-                        value={formData.guess}
+                        name="firstGuess"
+                        value={formData.firstGuess}
                     />
                 </div>
                 <button onClick={()=> takeGuess(searchString)}   
