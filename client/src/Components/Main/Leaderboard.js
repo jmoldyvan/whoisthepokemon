@@ -21,7 +21,7 @@ export default function Leaderboard(props){
         try {
             console.log('leader');
             let allHighScores = await getAllHighScore()
-            console.log('leader');
+            // console.log('leader');
             sethighScoreList(allHighScores)            
         } catch (error) {
             console.log(error);
@@ -52,7 +52,7 @@ export default function Leaderboard(props){
                             </div>
                         )
                     })
-                : {fillInLeaderboard}}
+                : []}
             </div>
         </div>
     )

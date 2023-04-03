@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from "react";
+import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import Logout from "../UserCred/Logout";
 import { useNavigate } from "react-router-dom";
 import { updateScore, updateHighScore, getUserHighScore } from "../UserCred/Services";
-import { getPokemonInfo, allPokemonNames } from "./APIService";
+import { allPokemonNames } from "./APIService";
 import Leaderboard from "./Leaderboard";
 import AutocompleteSearch from "./AutocompleteSearch"
+import Generations from "./Generations";
 
 export default function Main(){
 
@@ -18,22 +20,57 @@ export default function Main(){
     const [comboTracker, setcomboTracker] = useState(0)
     const [highscoreTracker, setHighScoreTracker] = useState(0)
     const [pokemonNames, setPokemonNames] = useState()
-    const [genertaions, setGenerations] = useState({
-        gen1: true,
-        gen2: true,
-        gen3: true,
-        gen4: true,
-        gen5: true,
-        gen6: true,
-        gen7: true,
-        gen8: true,
-        gen9: true,
-    })
+    const [genertaions, setGenerations] = useState([
+    { name: 'gen1', range: [1, 151], selected: true },
+    { name: 'gen2', range: [151, 251], selected: true },
+    { name: 'gen3', range: [252, 386], selected: true },
+    { name: 'gen4', range: [387, 493], selected: true },
+    { name: 'gen5', range: [494, 649], selected: true },
+    { name: 'gen6', range: [650, 721], selected: true },
+    { name: 'gen7', range: [722, 809], selected: true },
+    { name: 'gen8', range: [810, 905], selected: true },
+    { name: 'gen9', range: [906, 1000], selected: true },
+    ])
+
+function randomNumber(){
+    let randNum = Math.floor(Math.random() * 1000)
+    return randNum
+}     
+
+function getSelectedRanges(genertaions){
+    const selectedRanges = genertaions
+    .filter((generation) => generation.selected)
+    .map((generation) => generation.range);
+    const randomRange = selectedRanges[Math.floor(Math.random() * selectedRanges.length)];
+    const randomID = Math.floor(Math.random() * (randomRange[1] - randomRange[0] + 1) + randomRange[0]);
+    console.log(randomID);
+    return randomID;
+
+}
+
+console.log(getSelectedRanges(genertaions));
+async function getPokemonInfo(gens) {        
+    try {
+        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${getSelectedRanges(genertaions)}/`);
+        if(!res.data.sprites.other['official-artwork']['front_default']){
+            try {
+                const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${getSelectedRanges(genertaions)}/`);
+                return res.data;
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    else{
+        return res.data;      
+    }
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 async function generateRandomPokemon(genertaions){
     try {
     setWinCondition(false)
-    // pass in the highlighted generations to only produce those generation pokemon
     let pokemonInfo = await getPokemonInfo(genertaions)
     await setRandomPokemonInfo(pokemonInfo)
     return true
@@ -42,11 +79,16 @@ async function generateRandomPokemon(genertaions){
     }
   }
 
-  randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
+function toggleGeneration(chosenGeneration) {
+    setGenerations(prevValue => {
+        return prevValue.map((selGen) => {
+            return selGen.name === chosenGeneration ? {...selGen, selected: !selGen.selected} : selGen
+        })
+    })
+}
 
 async function allNamesOfPokemon() {
     try {
-        // pass in the highlighted generations to only produce those generation pokemon namnes
         let names = await allPokemonNames()
         let allNames = names.map((x, i) => {
             return {name:x.name, id:(i+1)}
@@ -65,6 +107,7 @@ async function allNamesOfPokemon() {
         generateRandomPokemon(genertaions)
         allNamesOfPokemon()
     }, []);
+
     useEffect(() => {
         updateAllScores()
         updateHighScores()
@@ -107,22 +150,9 @@ const pokemonShadow = {
     filter : winCondition === false ? 'brightness(0)' : null,
     pointerEvents : "none"
 }
-const highlight = {
-    color : 'blue',
-    backgroundColor : 'green'
-}
 
 function toggleLeaderboard() {
     setLeaderboardBool(prevValue => !prevValue)
-}
-
-function toggleGeneration(chosenGeneration) {
-    setGenerations(prevValue => {
-        return {
-            ...prevValue,
-            [chosenGeneration]: !prevValue[chosenGeneration]
-        }
-    })
 }
 
 function giveUpRevealAnswer(){
@@ -130,7 +160,7 @@ function giveUpRevealAnswer(){
     setcomboTracker(0)
 }
 
-// console.log(genertaions);
+randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
 
     return(
         <div>
@@ -155,22 +185,10 @@ function giveUpRevealAnswer(){
                 onClick={giveUpRevealAnswer} 
                 >Give Up
             </button>
-            {/* {genertaions.map((elementObject, i) =>{
-                return (
-                    <div>
-                        {elementObject[`gen${i+1}`] ? <button onClick= {() => toggleGeneration(`gen${i+1}`)} style={highlight}>{`gen${i+1}`}</button> : <button onClick= {() => toggleGeneration(`gen${i+1}`)} >{`gen${i+1}`}</button>}
-                    </div>
-                )
-            })} */}
-            {genertaions.gen1 ? <button onClick= {() => toggleGeneration('gen1')} style={highlight}>Gen 1</button> : <button onClick= {() => toggleGeneration('gen1')} >Gen 1</button>}
-            {genertaions.gen2 ? <button onClick= {() => toggleGeneration('gen2')} style={highlight}>Gen 2</button> : <button onClick= {() => toggleGeneration('gen2')} >Gen 2</button>}
-            {genertaions.gen3 ? <button onClick= {() => toggleGeneration('gen3')} style={highlight}>Gen 3</button> : <button onClick= {() => toggleGeneration('gen3')} >Gen 3</button>}
-            {genertaions.gen4 ? <button onClick= {() => toggleGeneration('gen4')} style={highlight}>Gen 4</button> : <button onClick= {() => toggleGeneration('gen4')} >Gen 4</button>}
-            {genertaions.gen5 ? <button onClick= {() => toggleGeneration('gen5')} style={highlight}>Gen 5</button> : <button onClick= {() => toggleGeneration('gen5')} >Gen 5</button>}
-            {genertaions.gen6 ? <button onClick= {() => toggleGeneration('gen6')} style={highlight}>Gen 6</button> : <button onClick= {() => toggleGeneration('gen6')} >Gen 6</button>}
-            {genertaions.gen7 ? <button onClick= {() => toggleGeneration('gen7')} style={highlight}>Gen 7</button> : <button onClick= {() => toggleGeneration('gen7')} >Gen 7</button>}
-            {genertaions.gen8 ? <button onClick= {() => toggleGeneration('gen8')} style={highlight}>Gen 8</button> : <button onClick= {() => toggleGeneration('gen8')} >Gen 8</button>}
-            {genertaions.gen9 ? <button onClick= {() => toggleGeneration('gen9')} style={highlight}>Gen 9</button> : <button onClick= {() => toggleGeneration('gen9')} >Gen 9</button>}
+            <Generations 
+                genertaions = {genertaions}
+                toggleGeneration = {toggleGeneration}
+            />
             <h1>You Have {comboTracker} combo</h1>
             <h1>Your HighScore {highscoreTracker}</h1>
             {leaderboardBool ? <Leaderboard handleLeaderboard={toggleLeaderboard} /> : <button onClick={() => toggleLeaderboard()}>Leaderboard</button>}
