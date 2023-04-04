@@ -8,8 +8,6 @@
 
 [X] shwo error no udplicate email
 
-[] cant have same username
-
 [X] fix high score larg
 
 [X] fix high score when new user signs in
@@ -30,14 +28,18 @@
 
 [X] fix draggin from mouse
 
-[]fix autocomplete rerendering
+[X]fix autocomplete rerendering
 
-[]make autocomplete a different componenet
+[X]make autocomplete a different componenet
 
-[] get req for different generations of pokemon
+[X] get req for different generations of pokemon
 
 [X] next pokemon should be disabled until take guess or give up is clicked
 
-[] leaderboard is broken****
+[X] leaderboard is broken****
 
 [] delete user option
+
+[] select no gen breaks game
+
+[] window reload
