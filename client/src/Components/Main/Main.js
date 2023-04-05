@@ -45,12 +45,10 @@ function getSelectedRanges(genertaions){
     .map((generation) => generation.range);
     const randomRange = selectedRanges[Math.floor(Math.random() * selectedRanges.length)];
     const randomID = Math.floor(Math.random() * (randomRange[1] - randomRange[0] + 1) + randomRange[0]);
-    console.log(randomID);
     return randomID;
 
 }
 
-console.log(getSelectedRanges(genertaions));
 async function getPokemonInfo() {        
     try {
         const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${getSelectedRanges(genertaions)}/`);
@@ -196,7 +194,7 @@ function selectA(index){
     })
 }
 
-randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
+// randomPokemonInfo?console.log(randomPokemonInfo.name):console.log(null)
 
     return(
         <div id="app">

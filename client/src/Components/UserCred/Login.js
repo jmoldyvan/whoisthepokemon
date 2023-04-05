@@ -32,8 +32,8 @@ export default function Login(){
           setError("");
           setLoading(true);
           await login(logInData.email, logInData.password);
-        //   await getUser(currentUser)
           navigate("/");
+          window.location.reload()
         } catch (e) {
           setError("Failed to login");
         }

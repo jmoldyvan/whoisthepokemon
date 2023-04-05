@@ -11,7 +11,6 @@ export default function Leaderboard(props){
 
     async function fillInLeaderboard(){
         try {
-            console.log('leader');
             let allHighScores = await getAllHighScore()
             sethighScoreList(allHighScores)            
         } catch (error) {

@@ -35,6 +35,7 @@ export default function Signup(){
             await updateUser(currentUser, {displayName: signUpData.userName})
             postUser(currentUser)
             navigate("/");
+            window.location.reload()
         } catch (error) {
             console.log(error);
         }

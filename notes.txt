@@ -42,10 +42,14 @@
 
 [] delete user option
 
-[] window reload
+[X?] window reload
 
-[] change color scheme
+[X] change color scheme
 
 [] soome border around who's that pokemon/ name
 
 [] styling for gens
+
+[] change button to not fade
+
+[] boarder for autocomplkekte nono 

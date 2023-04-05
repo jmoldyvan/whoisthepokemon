@@ -14,7 +14,6 @@ function handleSubmit(event) {
     event.preventDefault()
 }
 
-console.log(props.selectTab);
     return( 
         <div> 
             <form onSubmit={handleSubmit}>

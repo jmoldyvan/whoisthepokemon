@@ -75,7 +75,6 @@ export const getAllHighScore = async () => {
   
   try {
     const res = await axios.get(`${baseURL}/getAllHighScore`, {headers});
-    console.log(res.data);
     return res.data;
   } catch (error) {
     console.error(error);
