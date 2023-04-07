@@ -19,7 +19,7 @@ export default function Logout(props) {
 
     return (
       <TransitionGroup tag="div" name="animate-options" className={`poke-options ${props.winConditionAnimation ? 'poke-options-answers' : ''}`}>
-        <div className={`poke-options-button `} onClick={ () => handleLogout() }> 
+        <div className={`poke-options-button ${props.winConditionAnimation === 1 ? 'success' : props.winConditionAnimation === 2 ? 'error' : '' }`} onClick={ () => handleLogout() }> 
             <button>Logout</button>
         </div>
       </TransitionGroup>

@@ -22,7 +22,7 @@ $white: #fff;
 
 $primary-color: #111827;
 $primary-color-dark: darken( $primary-color, 10% );
-$primary-color-tint: lighten( $primary-color, 15% );
+$primary-color-tint: lighten( $primary-color, 50% );
 $primary-font: "VT323", monospace;
 
 $secondary-color: #94acbd;
@@ -57,6 +57,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 .container {
+	top: .2rem;
 	width: 100%;
 	max-width: 400px;
 	position: relative;
@@ -181,9 +182,36 @@ h2 {
 }
 
 .poke-title {
+	color: $primary-color-tint;
 	position: absolute;
-	top: -2rem;
+	top: -3rem;
+	font-size: 1.2rem;
+	font-weight: 900;
+	background-color: #0c111b;
+	padding: 1rem;
+	border-radius: 10%;
+}	
+.poke-title-2 {
+	color: $primary-color-tint;
+	font-size: 1.2rem;
+	font-weight: 900;
+	background-color: #0c111b;
+	padding: 1rem;
+	border-radius: 10%;
+	&.error {
+		color: $error-color;
+		&:active {
+			&::before {
+				transform: translate(-50%, -50%) scale(1);
+			}
+		}
+	}
+	&.success {
+		color: $success-color;
+	}
+
 }
+
 
 .poke-question {
 	position: absolute;
@@ -209,18 +237,18 @@ h2 {
 	top: 6rem;
 	right: calc(100% + 0.5rem);
 	padding-top: 1rem;
-	font-size: 1.25rem;
+	font-size: 1.5rem;
 	white-space: nowrap;
-	color: $black;
+	color: $primary-color-tint;
 	
 	&::before {
 		content: '';
 		position: absolute;
 		top: 0;
 		right: 0;
-		width: 40px;
+		width: 60px;
 		height: $border-width;
-		background-color: $black;
+		background-color: $primary-color-tint;
 	}
 }
 
@@ -338,22 +366,23 @@ h2 {
 			cursor: default;
 			
 			&:not(.error):not(.success) {
-				color: $secondary-color;
+				// color: $secondary-color;
 			}
 		}
 	}
 	
 	&-button {
+		text-align: center;
 		position: relative;
 		width: 100%;
-		padding: 0.5em;
+		padding: 0.1em;
 		min-width: 200px;
 		max-height: $options-height;
 		border: $border-main;
 		border-radius: $border-radius-main;
 		background-color: $options-color;
 		font-family: $primary-font;
-		font-size: 1.125rem;
+		font-size: 1.4rem;
 		transition: 0.45s;
 		cursor: pointer;
 		overflow: hidden;
@@ -386,7 +415,19 @@ h2 {
 		
 		&.error {
 			background-color: $error-color;
+			&:hover {
+				background-color: $options-color-hover;
+				// color: $primary-color-dark;
+				transform: translateY(-$border-width / 2);
+			}
+	
+			&:active {
+				&::before {
+					transform: translate(-50%, -50%) scale(1);
+				}
+			}
 		}
+		
 		
 		&.success {
 			background-color: $success-color;
@@ -402,8 +443,8 @@ h2 {
 	align-items: center;
 	z-index: 3;
 	top: -30px;
-	padding: 0 10px;
-	margin: 0 auto;
+	padding: 0 2px;
+	margin: 0 -23px;
 	width: 300px;
 	border-radius: $border-radius-main;
 	background-color: $black;
@@ -439,14 +480,15 @@ h2 {
 	&-button {
 		position: relative;
 		width: 33%;
-		padding: 0.5em;
+		padding: 0.2em;
+		padding-left: 1.2em;
 		min-width: 50px;
 		max-height: $options-height;
 		border: $border-main;
 		border-radius: $border-radius-main;
 		background-color: $options-color;
 		font-family: $primary-font;
-		font-size: 1.125rem;
+		font-size: 1.2rem;
 		transition: 0.45s;
 		cursor: pointer;
 		overflow: hidden;
@@ -462,7 +504,7 @@ h2 {
 			left: 50%;
 			top: 50%;
 			height: 200px;
-			width: 200px;
+			width: 20px;
 			border-radius: 50%;
 			background-color: $secondary-color;
 			transform: translate(-50%, -50%) scale(0);
@@ -472,7 +514,104 @@ h2 {
 		&:not(:last-child) {
 			margin-bottom: $border-width / 2;
 		}
-// ***************************
+
+		&.selected {
+			background-color: $secondary-color-1;
+			color: white
+		}
+		
+		&.error {
+			background-color: $error-color;
+		}
+		
+		&.success {
+			background-color: $success-color;
+		}
+	}
+}
+.poke-options-2 {
+	position: relative;
+	display: flex;
+	// flex-direction: column;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	align-items: center;
+	z-index: 3;
+	top: -30px;
+	padding: 0 2px;
+	margin: 0 -23px;
+	width: 300px;
+	border-radius: $border-radius-main;
+	background-color: $black;
+	
+	&:not(.poke-options-2-answers) {
+		.poke-options-2-button {
+			&:not(.selected) {
+				&:hover {
+					background-color: $options-color-hover;
+					// color: $primary-color-dark;
+					transform: translateY(-$border-width / 2);
+				}
+		
+				&:active {
+					&::before {
+						transform: translate(-50%, -50%) scale(1);
+					}
+				}
+			}
+		}
+	}
+	
+	&.poke-options-2-answers {
+		.poke-options-2-button {
+			cursor: default;
+			
+			&:not(.error):not(.success) {
+				color: $secondary-color;
+			}
+		}
+	}
+	
+	&-button {
+		display: flex;
+		justify-content:space-between;
+		position: relative;
+		width: 100%;
+		padding: 0.2em;
+		padding-left: 0em;
+		min-width: 100px;
+		max-height: $options-height;
+		border: $border-main;
+		border-radius: $border-radius-main;
+		background-color: $options-color;
+		font-family: $primary-font;
+		font-size: 1.4rem;
+		transition: 0.45s;
+		cursor: pointer;
+		overflow: hidden;
+		
+		&:focus {
+			outline: none;
+		}
+		
+		&::before {
+			content: '';
+			position: absolute;
+			z-index: -1;
+			left: 50%;
+			top: 50%;
+			height: 200px;
+			width: 20px;
+			border-radius: 50%;
+			background-color: $secondary-color;
+			transform: translate(-50%, -50%) scale(0);
+			transition: 0.2s ease-in-out;
+		}
+		
+		&:not(:last-child) {
+			margin-bottom: $border-width / 2;
+		}
+
 		&.selected {
 			background-color: $secondary-color-1;
 			color: white
@@ -506,7 +645,7 @@ h2 {
 	
 	.button {
 		padding: 1em;
-		width: 110px;
+		width: 150px;
 		height: 100px;
 		color: $white;
 		

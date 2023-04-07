@@ -202,7 +202,7 @@ function selectA(index){
                 <CSSTransition name="animate-section" classNames="animate-section">
                     <section className="poke-section" >
                         {currentUser ? <h1 className="poke-title">Hello {currentUser.displayName}</h1> : <h1 className="poke-title">Hello</h1>}
-                        <h1 className="">Who's That Pokemon?</h1>
+                        {winCondition ? <h3 className={`poke-title-2 ${winConditionAnimation === 1 ? 'success' : winConditionAnimation === 2 ? 'error' : '' }`}>It's {randomPokemonInfo.name}</h3> : <h1 className={`poke-title-2 ${winConditionAnimation === 1 ? 'success' : winConditionAnimation === 2 ? 'error' : '' }`}>Who's That Pokemon?</h1>}
                         <div className="poke-question-wrapper">
                             <h2 className="poke-question">
                                 <span aria-live="polite" className="poke-question-number">
@@ -218,19 +218,20 @@ function selectA(index){
                             <div className={`poke-image ${winConditionAnimation === 1 ? 'poke-image-success' : winConditionAnimation === 2 ? 'poke-image-error' : ''}`}>
                                 {randomPokemonInfo ? <img /*className="poke-image-img"*/ style={pokemonShadow} src={randomPokemonInfo.sprites.other['official-artwork']['front_default']}></img> : <img></img>}                               
                             </div>
-                            {winCondition && <h3>It's {randomPokemonInfo.name}</h3>}
-                            <TransitionGroup tag="div" name="animate-options" className={`poke-options ${winConditionAnimation ? 'poke-options-answers' : ''}`}>
-                                <AutocompleteSearch
-                                    pokemonNames={pokemonNames}
-                                    takeGuess={takeGuess}
-                                    winCondition={winCondition}
-                                    winConditionAnimation={winConditionAnimation}
-                                    selectA={selectA}
-                                    selectTab={selectTab}
-                                />
-                                {leaderboardBool ? <Leaderboard winConditionAnimation={winConditionAnimation} handleLeaderboard={toggleLeaderboard} /> : 
-                                <div className={`poke-options-button`} onClick={() => toggleLeaderboard()}>Leaderboard</div>}
-                            </TransitionGroup>
+                            <div className="mt-7">
+                                <TransitionGroup tag="div" name="animate-options" className={`poke-options ${winConditionAnimation ? 'poke-options-answers' : ''}`}>
+                                    <AutocompleteSearch
+                                        pokemonNames={pokemonNames}
+                                        takeGuess={takeGuess}
+                                        winCondition={winCondition}
+                                        winConditionAnimation={winConditionAnimation}
+                                        selectA={selectA}
+                                        selectTab={selectTab}
+                                    />
+                                    {leaderboardBool ? <Leaderboard winConditionAnimation={winConditionAnimation} handleLeaderboard={toggleLeaderboard} /> : 
+                                    <div className={`poke-options-button ${winConditionAnimation === 1 ? 'success' : winConditionAnimation === 2 ? 'error' : '' }`} onClick={() => toggleLeaderboard()}>Open Leaderboard</div>}
+                                </TransitionGroup>
+                            </div>
                             <Logout winConditionAnimation={winConditionAnimation} />
                             <footer className="poke-buttons">
                                 <button 

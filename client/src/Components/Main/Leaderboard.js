@@ -21,22 +21,22 @@ export default function Leaderboard(props){
 
     return(
             <div >
-                <div className="px-20 py-10 mt-4 text-left bg-white shadow-lg" >
+                <div className={`poke-options-2`} >
                     <XCircleIcon
                         onClick={() => props.handleLeaderboard()}
                         className="w-5 text-red-400"
                         aria-hidden="true"
                     />
                     <h3 className="text-2xl font-bold text-center">Leaderboard</h3>
-                    <div className="flex justify-between">
-                        <h1>user</h1>
-                        <h1>highScore</h1>
+                    <div className={`poke-options-2-button`}>
+                        <h1>USER</h1>
+                        <h1>HIGHSCORE</h1>
                     </div>
                     {highScoreList ? 
                         highScoreList.map((elementObject) =>{
                             const { highScore, user } = elementObject;
                             return (
-                                <div className="flex justify-between">
+                                <div  className={`poke-options-2-button`}>
                                     <h1>{user}</h1>
                                     <h1>{highScore}</h1>
                                 </div>

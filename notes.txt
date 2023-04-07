@@ -46,16 +46,16 @@
 
 [X] change color scheme
 
-[] soome border around who's that pokemon/ name
+[X] soome border around who's that pokemon/ name
 
 [X] styling for gens
 
-[] change button to not fade
+[X] change button to not fade
 
-[] boarder for autocomplkekte nono 
+[X] boarder for autocomplkekte nono 
 
-[] spacing for autocomplete
+[X] spacing for autocomplete
 
-[] reveal name of give up
+[X] reveal name of give up
 
 [] 

@@ -18,12 +18,21 @@ function handleSubmit(event) {
         <div> 
             <form onSubmit={handleSubmit}>
                 <div
-                    className={`poke-options-button ${props.selectTab[0].selected === true ? 'selected' : ''} ${props.winConditionAnimation === 1 ? 'success' : props.winConditionAnimation === 1 ? 'error' : '' }`}
+                    className={`poke-options-button ${props.selectTab[0].selected === true ? 'selected' : ''} ${props.winConditionAnimation === 1 ? 'success' : props.winConditionAnimation === 2 ? 'error' : '' }`}
                     onClick={() => props.selectA('autocomplete')}
                 >
                     <Autocomplete
                         options={props.pokemonNames}
-                        sx={{ width: 300 }}
+                        sx={{ 
+                            width: 300,
+                            "& .MuiOutlinedInput-root": {
+                                borderRadius: "0",
+                                padding: "0"
+                            },
+                            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                                border: "1px solid #eee"
+                            }
+                        }}
                         onChange={handleChange}
                         id="pokeNameAutocomplete"
                         value={autoCompleteStringValue || null}
@@ -38,7 +47,7 @@ function handleSubmit(event) {
                 </div>
                 <div 
                     onClick={() => {autoCompleteStringValue!==undefined ? props.takeGuess(autoCompleteStringValue.name) : props.takeGuess(null)}}
-                    className={`poke-options-button ${props.selectTab[1].selected === true ? 'selected' : ''} ${props.winConditionAnimation === 1 ? 'success' : props.winConditionAnimation === 1 ? 'error' : '' }`}  
+                    className={`poke-options-button ${props.selectTab[1].selected === true ? 'selected' : ''} ${props.winConditionAnimation === 1 ? 'success' : props.winConditionAnimation === 2 ? 'error' : '' }`}  
                     >TAKE GUESS
                 </div>
             </form>             
