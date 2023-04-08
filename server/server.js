@@ -12,7 +12,7 @@ import dotenv from "dotenv";
 const app = express()
 app.use(cors());
 
-dotenv.config({path: '/.env'})
+dotenv.config({path: '../.env'})
 
 connectDB()
 app.use(express.static('public'))
