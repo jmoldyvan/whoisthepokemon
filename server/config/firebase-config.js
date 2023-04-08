@@ -1,5 +1,7 @@
 import { initializeApp, cert } from 'firebase-admin/app';
 import { getAuth } from "firebase-admin/auth";
+import fs from 'fs';
+import path from 'path';
 
 const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
 
