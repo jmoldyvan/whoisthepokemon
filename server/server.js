@@ -8,11 +8,11 @@ import  connectDB  from './config/database.js'
 import mainRoutes from './routes/main.js'
 import cors from "cors"
 import { VerifyToken } from './middleware/VerifyToken.js'
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 const app = express()
 app.use(cors());
 
-dotenv.config({path: '../.env'})
+// dotenv.config({path: '../.env'})
 
 connectDB()
 app.use(express.static('public'))

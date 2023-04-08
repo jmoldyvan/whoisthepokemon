@@ -30,7 +30,7 @@ function handleSubmit(event) {
                                 padding: "0"
                             },
                             "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                                border: "1px solid #eee"
+                                border: "0px solid #eee"
                             }
                         }}
                         onChange={handleChange}
