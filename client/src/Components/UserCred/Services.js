@@ -1,7 +1,7 @@
 import axios from "axios";
 import auth from "../../config/firebase";
 
-const baseURL = "https://api.render.com/deploy/srv-cgobm3grddl9mmqvakog?key=ocyxhghwgFI";
+const baseURL = "https://whos-that-pokemon-mzig.onrender.com";
 
 const getUserToken = async () => {
   const user = auth.currentUser;
