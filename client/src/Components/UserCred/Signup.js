@@ -56,9 +56,18 @@ export default function Signup(){
             if(event.code == 'auth/email-already-in-use'){
                 alert('this email is already in use')
             }
+            if(event.code == 'auth/weak-password'){
+                alert('Password should be at least 6 characters')
+            }
+            if(event.code == 'auth/invalid-email'){
+                alert('Invalid Email, make sure email format is: jondoe@email.com')
+            }
+            if(event.code == 'auth/weak-password'){
+                alert('Password should be at least 6 characters')
+            }
             else{
                 console.log(event);
-                alert("Failed to register");     
+                alert(`Failed to register:  ${event.code}`);     
             }
           }
           setLoading(false);
