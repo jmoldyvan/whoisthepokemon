@@ -91,7 +91,7 @@ export default function Login(){
                                     <Link 
                                         to={'/signup'} 
                                         class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
-                                        Sign up
+                                        {` Sign up`}
                                     </Link>
                                 </p>
                             </div>

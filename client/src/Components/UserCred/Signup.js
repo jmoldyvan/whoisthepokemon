@@ -57,7 +57,8 @@ export default function Signup(){
                 alert('this email is already in use')
             }
             else{
-                       alert("Failed to register");     
+                console.log(event);
+                alert("Failed to register");     
             }
           }
           setLoading(false);
@@ -101,7 +102,7 @@ export default function Signup(){
                                     onChange={handleChange}
                                     type='text' 
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                    placeholder="password"
+                                    placeholder="Password"
                                     name="password"
                                     value={signUpData.password}>
                                 </input>
@@ -112,7 +113,7 @@ export default function Signup(){
                                     onChange={handleChange}
                                     type='text' 
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                    placeholder="confirmPassword"
+                                    placeholder="Confirm Password"
                                     name="confirmPassword"
                                     value={signUpData.confirmPassword}>
                                 </input>
@@ -122,7 +123,7 @@ export default function Signup(){
                                     disabled={loading}
                                     type="submit" 
                                     className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
-                                    Login
+                                    Register
                                 </button>
                             </div>
                         <p className="mt-6 text-sm font-light text-gray-500 dark:text-gray-400">
@@ -130,7 +131,7 @@ export default function Signup(){
                             <Link 
                                 to={'/login'} 
                                 class="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-600">
-                                Sign up
+                                {` Log in here!`}
                             </Link>
                         </p>
                     </div>
